@@ -99,6 +99,12 @@ p { margin: 0 0 12px; }
 .fact b { display: block; font-family: var(--display); font-weight: 400; font-size: 18px; color: var(--moon); }
 .fact span { color: var(--moon-dim); font-size: 14px; }
 
+/* Creed */
+.creed { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: center; }
+.creed > div { min-width: 0; }
+.creed img { width: 100%; border-radius: 50%; box-shadow: 0 20px 60px -20px #000; }
+@media (max-width: 760px) { .creed { grid-template-columns: 1fr; } .creed img { max-width: 260px; justify-self: center; } }
+
 /* Seasons */
 .seasons { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin-top: 22px; }
 .season { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
@@ -190,6 +196,18 @@ footer .wrap { display: flex; gap: 12px 24px; flex-wrap: wrap; justify-content: 
           <div class="fact"><b>Central time</b><span>Events run on Chicago's clock</span></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="creed">
+    <div class="wrap creed">
+      <div>
+        <div class="eyebrow">House rules, more or less</div>
+        <h2>Where common sense goes to die</h2>
+        <p>And stupid sh*t gets rewarded. We mean it. Launch a cow out of a catapult. Pray over an eoka that will probably fall apart. Die to a chicken and get roasted for it in front of everyone. Somewhere on this server there's a prize for it.</p>
+        <p class="muted">Play hard, laugh harder, and don't take any of it too seriously. Except each other: look out for each other.</p>
+      </div>
+      <img src="img/motto_seal.jpg" alt="A rusted iron seal: a brain-shaped light bulb beside a tombstone reading R.I.P. Common Sense, and a star rosette, ringed by the words Where common sense goes to die, stupid sh*t gets rewarded" width="640" height="640" loading="lazy">
     </div>
   </section>
 
