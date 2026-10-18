@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>You're Not Alone</title>
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: quiet. The help lines first, where nobody has to scroll for them; then MoonDoggy's words as a single readable column. */
+:root {
+  --sky: #0a1028; --sky-2: #121a3d; --sky-3: #1b2552;
+  --moon: #efe4c8; --moon-dim: #b9b2a0; --rust: #d0612e; --gold: #f0b94a;
+  --display: "Bungee", "Arial Black", Impact, sans-serif;
+  --body: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --read: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
+  color-scheme: dark;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--sky); color: var(--moon); font-family: var(--body); font-size: 16px; line-height: 1.6; }
+a { color: var(--gold); }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.top { border-bottom: 1px solid var(--sky-3); }
+.top .wrap { max-width: 1040px; display: flex; align-items: center; gap: 16px; padding-block: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--moon); font-family: var(--display); font-size: 15px; }
+.brand img { width: 34px; height: 34px; border-radius: 50%; }
+.top nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
+.top nav a { color: var(--moon-dim); text-decoration: none; font-size: 14px; font-weight: 500; }
+.top nav a:hover, .top nav a[aria-current] { color: var(--moon); }
+
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 6vw, 46px); line-height: 1.05; margin: 40px 0 8px; text-wrap: balance; }
+.sub { color: var(--moon-dim); margin: 0 0 24px; font-size: 17px; }
+
+.lines { display: grid; gap: 12px; }
+.line { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; padding: 16px 18px; display: grid; gap: 4px; }
+.line.vet { border-color: var(--gold); }
+.line h2 { margin: 0; font-size: 16px; font-weight: 700; }
+.line .num { font-family: var(--mono); font-size: clamp(22px, 5vw, 28px); color: var(--gold); letter-spacing: .02em; user-select: all; }
+.line p { margin: 0; color: var(--moon-dim); font-size: 15px; }
+.line.me .num { font-size: 18px; }
+
+.letter { margin: 44px 0 20px; padding-top: 28px; border-top: 1px solid var(--sky-3); font-family: var(--read); font-size: 19px; line-height: 1.7; }
+.letter p { margin: 0 0 1.05em; }
+.letter .big { font-family: var(--display); font-size: 22px; line-height: 1.3; color: var(--rust); letter-spacing: .01em; }
+.letter .beat { font-style: italic; }
+.motto { margin: 40px 0 0; padding: 22px 0 0; border-top: 1px solid var(--sky-3); text-align: center; }
+.motto q { display: block; font-family: var(--display); font-size: clamp(20px, 4vw, 26px); line-height: 1.3; color: var(--gold); quotes: none; text-wrap: balance; }
+.motto span { display: block; margin-top: 8px; color: var(--moon-dim); font-size: 14px; letter-spacing: .04em; }
+.song { margin: 18px 0 0; text-align: center; color: var(--moon-dim); font-size: 15px; }
+.song i { color: var(--moon); }
+.org { margin: 40px 0 0; display: grid; gap: 14px; }
+.org .card { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; padding: 20px 22px; }
+.org h2 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font-size: 22px; }
+.org .tagline { font-style: italic; color: var(--moon-dim); margin: 0 0 10px; }
+.org p { margin: 0 0 10px; }
+.org .links { display: flex; gap: 10px 18px; flex-wrap: wrap; font-weight: 700; }
+.org .acr { font-family: var(--mono); font-size: 13px; color: var(--moon-dim); letter-spacing: .03em; }
+.sig { font-family: var(--body); font-size: 16px; color: var(--moon-dim); margin-top: 26px; }
+.sig b { color: var(--moon); font-family: var(--display); font-weight: 400; font-size: 20px; display: block; }
+
+footer { padding-block: 28px 44px; color: var(--moon-dim); font-size: 14px; border-top: 1px solid var(--sky-3); margin-top: 30px; }
+@media (max-width: 640px) { .top nav { margin-left: 0; } .letter { font-size: 18px; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/icon.png" alt="">Celestial Misfits</a>
+    <nav aria-label="Site">
+      <a href="index.html#seasons">Seasons</a>
+      <a href="guide.html">Player guide</a>
+      <a href="help.html" aria-current="page">You're not alone</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1>You're not alone.</h1>
+  <p class="sub">If you're in the dark right now, reach out to one of these. Any hour, any day. It's free and private.</p>
+
+  <div class="lines">
+    <div class="line vet">
+      <h2>Veterans Crisis Line</h2>
+      <div class="num">Call 988, then press 1</div>
+      <p>You talk live to people who get it, many of them veterans themselves. Or text <b class="num" style="font-size:inherit">838255</b>. Chat online at <a href="https://www.veteranscrisisline.net" target="_blank" rel="noopener">VeteransCrisisLine.net</a>.</p>
+    </div>
+    <div class="line">
+      <h2>988 Suicide &amp; Crisis Lifeline</h2>
+      <div class="num">Call or text 988</div>
+      <p>For anyone in the US. Chat online at <a href="https://988lifeline.org" target="_blank" rel="noopener">988lifeline.org</a>.</p>
+    </div>
+    <div class="line">
+      <h2>Outside the US</h2>
+      <p>Find a free helpline in your country at <a href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a>.</p>
+    </div>
+    <div class="line me">
+      <h2>Or talk to me</h2>
+      <div class="num">/pm MoonDoggy</div>
+      <p>In game, that's a private message: nobody else sees it. Or type <b>/lifeline talk</b> and I'll come find you. On Discord: <b>zzmoondoggy</b>.</p>
+      <p><b>Your words are never saved or logged.</b> Nobody else is told. If I'm offline, only your name waits for me, and it's deleted the moment I see it.</p>
+    </div>
+  </div>
+
+  <article class="letter">
+    <p class="big">SUICIDE:&nbsp; "Just ask for help!"</p>
+    <p>I'll let you in on a little secret about this.<br>Sometimes you can't.&nbsp; People have this rapid onset episode and it overwhelms them with a darkness that, unless you have experienced it, "normal" people can never comprehend.</p>
+    <p>It starts slowly, and always in a different manner.&nbsp; Always.&nbsp; Because they have learned to deal with the other ways that have puts them into that position.</p>
+    <p class="beat">Every single time it's different.&nbsp; Every. Single. Time.</p>
+    <p>And before they know it, the demons have them locked up and they are in the midst of a&nbsp; full panic attack.&nbsp; They don't think rationally, they are just.. alone.&nbsp; Utterly, desperately, alone.</p>
+    <p>Nothing scares them like these episodes.&nbsp; The darkness is so overpowering.</p>
+    <p>What can you do?&nbsp; Each person is different, but if they start acting even SLIGHTLY out of character, time to check in with them.</p>
+    <p>Just a simple "Aight?" is good.&nbsp; And keep checking till they appear to be back to normal.</p>
+    <p>Because this is how some slip under the wire.&nbsp; But mostly, "Hey I'll swing by and we can grab a beer!" is the best way to help.&nbsp; They will resist, but you will insist.</p>
+    <p>&nbsp;Because they want that help, but don't want to be weak or be a burden.</p>
+    <p class="big">Be a pain.&nbsp; It works.</p>
+    <div class="sig"><b>MoonDoggy</b>Owner, Celestial Misfits. Marine. I have been here, so I know what it's like.</div>
+  </article>
+
+  <div class="motto">
+    <q>When you have purpose, you don't have time for demons.</q>
+    <span>The motto of <a href="https://www.214life.org" target="_blank" rel="noopener">214 Life</a>, our nonprofit</span>
+  </div>
+  <p class="song">For the ones who've been there: Five Finger Death Punch, <a href="https://www.youtube.com/watch?v=o_l4Ab5FRwM" target="_blank" rel="noopener"><i>"Wrong Side of Heaven"</i></a>. You know the one.</p>
+
+  <section class="org" aria-label="214 Life">
+    <div class="card">
+      <h2>214 Life</h2>
+      <p class="tagline">We served, we endured, and we celebrate together.</p>
+      <p>Our nonprofit, for veterans. Over the years it has helped stop more than 14,000 veteran suicides. Every one we've lost, we carry.</p>
+      <div class="links"><a href="https://www.214life.org" target="_blank" rel="noopener">214life.org</a><a href="https://www.214life.org/donate" target="_blank" rel="noopener">Donate to 214 Life</a></div>
+    </div>
+    <div class="card">
+      <h2>Jump S.T.A.R.T.</h2>
+      <p class="acr">Shade Tree Automotive Rehabilitation Team · central Iowa</p>
+      <p>The Jump S.T.A.R.T. Campaign takes donated vehicles that need a little TLC and makes them safe, reliable vehicles for veterans who are without one.</p>
+      <p>Contact: Herb Anderson, <a href="mailto:herb@214life.org" style="user-select: all">herb@214life.org</a></p>
+      <div class="links"><a href="https://www.214life.org/jump-s-t-a-r-t" target="_blank" rel="noopener">About Jump S.T.A.R.T.</a></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><a href="index.html">Back to Celestial Misfits</a></div>
+</footer>
+</body>
+</html>

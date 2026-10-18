@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Celestial Misfits</title>
+<meta name="description" content="Celestial Misfits: a Rust server that doesn't take itself too seriously. Seasonal events, custom weapons, and a bloodhound on the moon.">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }
+/* Layout: a night sky. One wide season banner as the hero, then stacked bands: about, seasons calendar, arsenal, donate. */
+:root {
+  --sky: #0a1028;         /* page ground, the art's night sky */
+  --sky-2: #121a3d;       /* raised panels */
+  --sky-3: #1b2552;       /* borders, hover */
+  --moon: #efe4c8;        /* main text, the cracked-moon cream */
+  --moon-dim: #b9b2a0;    /* secondary text */
+  --rust: #d0612e;        /* accent, the rusty lettering */
+  --gold: #f0b94a;        /* highlights, stars, "on now" */
+  --display: "Bungee", "Arial Black", Impact, sans-serif;
+  --body: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--sky);
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, #ffffff55 50%, transparent 51%),
+    radial-gradient(1px 1px at 68% 9%, #ffffff44 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 85% 42%, #f0b94a55 50%, transparent 51%),
+    radial-gradient(1px 1px at 33% 63%, #ffffff33 50%, transparent 51%),
+    radial-gradient(1px 1px at 54% 88%, #ffffff44 50%, transparent 51%);
+  background-size: 420px 420px;
+  color: var(--moon);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sky); }
+a { color: var(--gold); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Top bar */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--sky) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--sky-3); }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--moon); font-family: var(--display); font-size: 15px; letter-spacing: .02em; }
+.brand img { width: 34px; height: 34px; border-radius: 50%; }
+.top nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
+.top nav a { color: var(--moon-dim); text-decoration: none; font-size: 14px; font-weight: 500; }
+.top nav a:hover { color: var(--moon); }
+.top nav a.nav-help { color: var(--gold); }
+
+/* Hero */
+.hero { padding-block: 28px 8px; }
+.hero figure { margin: 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--sky-3); box-shadow: 0 30px 80px -30px #000; }
+.hero img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; }
+.hero-row { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; padding-block: 22px 0; }
+.hero-row > div { min-width: 0; }
+.now { font-family: var(--mono); font-size: 13px; color: var(--gold); letter-spacing: .04em; text-transform: uppercase; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 5vw, 52px); line-height: 1.02; margin: 6px 0 10px; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--rust); }
+.lead { color: var(--moon-dim); max-width: 60ch; margin: 0; font-size: 17px; }
+.actions { display: flex; flex-direction: column; gap: 10px; min-width: 240px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; border: 1px solid var(--sky-3); color: var(--moon); background: var(--sky-2); cursor: pointer; font-family: var(--body); }
+.btn:hover { border-color: var(--moon-dim); }
+.btn.primary { background: var(--rust); border-color: var(--rust); color: #1a0d06; }
+.btn.primary:hover { background: #e2733e; }
+.btn[aria-disabled="true"] { opacity: .55; cursor: default; pointer-events: none; }
+.addr { display: flex; gap: 8px; align-items: stretch; }
+.addr code { flex: 1; min-width: 0; font-family: var(--mono); font-size: 13px; background: #060a1c; border: 1px solid var(--sky-3); border-radius: 10px; padding: 11px 12px; overflow-x: auto; white-space: nowrap; color: var(--moon); }
+.addr .btn { padding-inline: 14px; }
+
+/* Bands */
+section { padding-block: 64px 8px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; color: var(--rust); letter-spacing: .14em; text-transform: uppercase; }
+h2 { font-family: var(--display); font-weight: 400; font-size: clamp(24px, 3.4vw, 36px); line-height: 1.1; margin: 6px 0 14px; text-wrap: balance; }
+p { margin: 0 0 12px; }
+.muted { color: var(--moon-dim); }
+
+/* About */
+.about { display: grid; grid-template-columns: 260px 1fr; gap: 36px; align-items: center; }
+.about img { width: 100%; border-radius: 50%; border: 3px solid var(--sky-3); }
+.about > div { min-width: 0; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.fact { border-left: 3px solid var(--rust); padding: 4px 0 4px 12px; }
+.fact b { display: block; font-family: var(--display); font-weight: 400; font-size: 18px; color: var(--moon); }
+.fact span { color: var(--moon-dim); font-size: 14px; }
+
+/* Seasons */
+.seasons { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin-top: 22px; }
+.season { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+.season img { display: block; width: 100%; aspect-ratio: 2 / 1; object-fit: cover; }
+.season .body { padding: 12px 14px 14px; display: grid; gap: 4px; }
+.season h3 { margin: 0; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.season .when { font-family: var(--mono); font-size: 12.5px; color: var(--moon-dim); font-variant-numeric: tabular-nums; }
+.season .tok { font-size: 13.5px; color: var(--moon-dim); }
+.season .tok b { color: var(--moon); font-weight: 500; }
+.season .tok .cmd { font-family: var(--mono); font-size: 12.5px; color: var(--gold); }
+.chip { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; border: 1px solid currentColor; }
+.chip.on { color: var(--gold); }
+.chip.next { color: var(--rust); }
+.season.is-on { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold) inset; }
+
+/* Arsenal */
+.arsenal { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0 32px; margin-top: 18px; }
+.gun { padding: 16px 0; border-top: 1px solid var(--sky-3); display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; }
+.gun h3 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 19px; }
+.gun .base { font-family: var(--mono); font-size: 12px; color: var(--moon-dim); align-self: center; text-align: right; }
+.gun p { grid-column: 1 / -1; margin: 4px 0 0; color: var(--moon-dim); font-size: 15px; }
+
+/* Donate */
+.donate { background: linear-gradient(135deg, #1b1430, var(--sky-2)); border: 1px solid var(--sky-3); border-radius: 16px; padding: 28px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+.donate > div { min-width: 0; }
+.donate ul { margin: 10px 0 0; padding-left: 20px; color: var(--moon-dim); }
+
+.lifeline { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; text-decoration: none; color: var(--moon); border: 1px solid var(--gold); border-radius: 16px; padding: 26px 28px; background: var(--sky-2); }
+.lifeline > div { min-width: 0; }
+.lifeline:hover .btn { border-color: var(--gold); }
+.lifeline b { color: var(--gold); }
+@media (max-width: 760px) { .lifeline { grid-template-columns: 1fr; } }
+footer { padding-block: 56px 40px; color: var(--moon-dim); font-size: 14px; }
+footer .wrap { display: flex; gap: 12px 24px; flex-wrap: wrap; justify-content: space-between; border-top: 1px solid var(--sky-3); padding-top: 20px; }
+
+@media (max-width: 760px) {
+  .hero-row, .about, .donate { grid-template-columns: 1fr; }
+  .actions { min-width: 0; }
+  .about img { max-width: 200px; }
+  .facts { grid-template-columns: 1fr; }
+  .top nav { margin-left: 0; gap: 14px; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home"><img src="img/icon.png" alt="">Celestial Misfits</a>
+    <nav aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#seasons">Seasons</a>
+      <a href="#arsenal">Arsenal</a>
+      <a href="guide.html">Player guide</a>
+      <a href="#donate">Donate</a>
+      <a href="help.html" class="nav-help">You're not alone</a>
+    </nav>
+  </div>
+</header>
+
+<main id="home">
+  <div class="wrap hero">
+    <figure><img id="heroImg" src="img/regular.jpg" alt="Celestial Misfits banner: a bloodhound in a patched space helmet, cigar in mouth, sitting on the moon"></figure>
+    <div class="hero-row">
+      <div>
+        <div class="now" id="nowLine">Rust · Community server</div>
+        <h1>A Rust server for <em>misfits</em>, run by some.</h1>
+        <p class="lead">Seasonal events all year, custom rocket weapons, horses to breed, and a bloodhound on the moon who has seen things. We play hard and take ourselves lightly.</p>
+      </div>
+      <div class="actions">
+        <div class="addr"><code id="addr">Server address coming soon</code><button class="btn" id="copyBtn" type="button">Copy</button></div>
+        <a class="btn primary" id="discordBtn" href="#" target="_blank" rel="noopener">Join the Discord</a>
+        <a class="btn" href="guide.html">Player guide: every command</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap about">
+      <img src="img/hound.jpg" alt="The Celestial Misfits mascot: a cigar-chomping bloodhound in a patched helmet on a crescent moon">
+      <div>
+        <div class="eyebrow">Who we are</div>
+        <h2>Not too serious. Seriously.</h2>
+        <p>Celestial Misfits is a community Rust server built by MoonDoggy, a Marine and longtime admin who'd rather you laugh at a cow flying out of a catapult than rage-quit over a raid.</p>
+        <p class="muted">Every few weeks something new is going on: a season with its own token to earn, its own shop, its own banner. Some tokens are spent and gone. One, the Eagle, Globe &amp; Anchor, is earned in combat and kept for life.</p>
+        <div class="facts">
+          <div class="fact"><b>13 seasons</b><span>Halloween to Talk Like a Pirate Day</span></div>
+          <div class="fact"><b>6 custom weapons</b><span>Rockets from a mortar, an eoka, a catapult</span></div>
+          <div class="fact"><b>Central time</b><span>Events run on Chicago's clock</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="seasons">
+    <div class="wrap">
+      <div class="eyebrow">All year long</div>
+      <h2>The seasons</h2>
+      <p class="muted">Each season drops its own token. Earn it in the field, spend it in that season's shop. Dates are inclusive, Central time.</p>
+      <div class="seasons" id="seasonGrid"></div>
+    </div>
+  </section>
+
+  <section id="arsenal">
+    <div class="wrap">
+      <div class="eyebrow">Custom weapons</div>
+      <h2>The arsenal</h2>
+      <p class="muted">Every rocket costs a real rocket from your inventory. No free lunch, even on the moon.</p>
+      <div class="arsenal">
+        <div class="gun"><h3>Hellfire M249</h3><span class="base">LMG</span><p>Fires rockets instead of bullets. Double damage against helicopters.</p></div>
+        <div class="gun"><h3>Thumper</h3><span class="base">Mortar</span><p>One lead rocket on the mortar's own arc, then a six-rocket barrage where it lands.</p></div>
+        <div class="gun"><h3>Yeet Machine</h3><span class="base">Catapult</span><p>Throws its boulders plus up to four C4 that go off on impact. Here, hold my beer.</p></div>
+        <div class="gun"><h3>CattlePult</h3><span class="base">Catapult</span><p>Launches a live cow. She does not land gently. Moo-ve over.</p></div>
+        <div class="gun"><h3>My Precioussss</h3><span class="base">Pistol</span><p>A semi-auto that fires high-velocity rockets. Good master, good Sméagol.</p></div>
+        <div class="gun"><h3>Hail Mary</h3><span class="base">Eoka</span><p>Strike the flint and pray. One rocket, then it breaks. Repair it if you dare.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="donate">
+    <div class="wrap">
+      <div class="donate">
+        <div>
+          <div class="eyebrow">Keep the lights on</div>
+          <h2>Support the server</h2>
+          <p>Celestial Misfits is paid for out of pocket. If you enjoy it here, a donation helps cover hosting and keeps the moon in orbit.</p>
+          <ul>
+            <li>Donations are a thank-you, not a purchase. Nothing in game is for sale.</li>
+            <li>Payments are handled securely by Tip4Serv (PayPal or card).</li>
+          </ul>
+        </div>
+        <a class="btn primary" id="donateBtn" href="#" target="_blank" rel="noopener">Donate</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="lifeline">
+    <div class="wrap">
+      <a class="lifeline" href="help.html">
+        <div>
+          <div class="eyebrow">Nobody should have to be alone</div>
+          <h2>You're not alone.</h2>
+          <p>Veterans: call <b>988, then press 1</b>. Anyone in the US: call or text <b>988</b>. In game, type <b>/lifeline</b>: it's private, and your words are never saved.</p>
+          <p class="muted">When you have purpose, you don't have time for demons. (214 Life)</p>
+        </div>
+        <span class="btn">Read MoonDoggy's words</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Celestial Misfits · a Rust community server. Not affiliated with Facepunch Studios.</span>
+    <span><a href="help.html">You're not alone: help lines, any hour</a></span>
+    <span><a href="https://www.214life.org" target="_blank" rel="noopener">214 Life</a>: our nonprofit for veterans</span>
+    <span>Questions? MoonDoggy on Discord: <b>zzmoondoggy</b></span>
+  </div>
+</footer>
+
+<script>
+// Fill these in when they exist. Empty = the button shows "coming soon".
+const CONFIG = {
+  serverAddress: "",   // e.g. "play.celestialmisfits.com:28015"
+  discordUrl: "",      // e.g. "https://discord.gg/xxxxxxx"
+  donateUrl: ""        // your Tip4Serv store link
+};
+
+// Season windows (month-day, both days included), matching Seasons.json.
+const SEASONS = [
+  { id: "newyear",      name: "New Year's",            start: "12-30", end: "01-02", token: "Firecracker", cmd: "boom" },
+  { id: "valentines",   name: "Valentine's",           start: "02-07", end: "02-14", token: "Rusty Heart", cmd: "heart" },
+  { id: "easter",       name: "Easter",                rule: "easter", before: 6, after: 0, token: "Chipped Egg", cmd: "egg" },
+  { id: "memorial",     name: "Memorial Day",          rule: "last-mon-05", before: 6, after: 0, token: "Memorial Plaque", cmd: "plaque" },
+  { id: "july4",        name: "4th of July",           start: "07-01", end: "07-07", token: "Liberty Scroll", cmd: "liberty" },
+  { id: "laborday",     name: "Labor Day",             rule: "1st-mon-09", before: 6, after: 0, token: "Hard Hat & Hammer", cmd: "hardhat" },
+  { id: "pirate",       name: "Talk Like a Pirate Day",start: "09-17", end: "09-21", token: "Doubloon", cmd: "doubloon" },
+  { id: "halloween",    name: "Halloween",             start: "10-20", end: "10-31", token: "Ectoplasm", cmd: "ecto" },
+  { id: "muertos",      name: "Día de los Muertos",    start: "11-01", end: "11-02", token: "Sugar Skull", cmd: "skull" },
+  { id: "usmc",         name: "Marine Corps Birthday", start: "11-03", end: "11-10", token: "Eagle, Globe & Anchor", cmd: "ega", note: "Kept for life" },
+  { id: "veterans",     name: "Veterans Day",          start: "11-11", end: "11-11", token: "Helmet & Folded Flag", cmd: "flag" },
+  { id: "thanksgiving", name: "Thanksgiving",          rule: "4th-thu-11", before: 3, after: 3, token: "Wishbone", cmd: "wishbone" },
+  { id: "christmas",    name: "Christmas",             start: "12-15", end: "12-26", token: "Candy Cane", cmd: "candy" }
+];
+
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const md = s => s.split("-").map(Number);
+const fmt = s => { const [m, d] = md(s); return MONTHS[m - 1] + " " + d; };
+
+// Central time "today".
+function centralToday() {
+  const parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric" }).formatToParts(new Date());
+  const g = t => +parts.find(p => p.type === t).value;
+  return new Date(g("year"), g("month") - 1, g("day"));
+}
+
+// Holidays that move: "easter", or "<1st..5th|last>-<day>-<MM>" (same rules as Seasons).
+function easter(y) {
+  const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), da = (h + l - 7 * m + 114) % 31 + 1;
+  return new Date(y, mo - 1, da);
+}
+const DOW = ["sun","mon","tue","wed","thu","fri","sat"];
+function ruleDate(rule, y) {
+  if (rule === "easter") return easter(y);
+  const [n, day, mm] = rule.split("-"), m = +mm - 1, dow = DOW.indexOf(day);
+  if (n === "last") { const x = new Date(y, m + 1, 0); while (x.getDay() !== dow) x.setDate(x.getDate() - 1); return x; }
+  const x = new Date(y, m, 1); while (x.getDay() !== dow) x.setDate(x.getDate() + 1);
+  x.setDate(x.getDate() + 7 * (parseInt(n) - 1)); return x;
+}
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+
+// Current or next window for a season, relative to today.
+function windowFor(s, today) {
+  for (const y of [today.getFullYear() - 1, today.getFullYear(), today.getFullYear() + 1]) {
+    let a, b;
+    if (s.rule) { const r = ruleDate(s.rule, y); a = addDays(r, -s.before); b = addDays(r, s.after); }
+    else {
+      const [sm, sd] = md(s.start), [em, ed] = md(s.end);
+      a = new Date(y, sm - 1, sd); b = new Date(y, em - 1, ed);
+      if (b < a) b = new Date(y + 1, em - 1, ed);
+    }
+    if (today <= b) return { a, b, on: today >= a };
+  }
+}
+
+const today = centralToday();
+const list = SEASONS.map(s => ({ ...s, w: windowFor(s, today) })).sort((x, y) => x.w.a - y.w.a);
+const current = list.find(s => s.w.on);
+const next = list.find(s => !s.w.on);
+
+// Hero follows the season.
+const heroImg = document.getElementById("heroImg");
+const nowLine = document.getElementById("nowLine");
+if (current) {
+  heroImg.src = "img/" + current.id + ".jpg";
+  heroImg.alt = "Celestial Misfits " + current.name + " banner";
+  const left = Math.round((current.w.b - today) / 864e5);
+  nowLine.textContent = "On now: " + current.name + (left === 0 ? " · last day" : " · " + (left + 1) + " days left");
+} else if (next) {
+  const until = Math.round((next.w.a - today) / 864e5);
+  nowLine.textContent = "Next: " + next.name + " in " + until + (until === 1 ? " day" : " days");
+}
+
+// Season grid, starting with what's on now.
+const grid = document.getElementById("seasonGrid");
+grid.innerHTML = list.map(s => {
+  const chip = s.w.on ? '<span class="chip on">On now</span>' : (s === next ? '<span class="chip next">Next</span>' : "");
+  const f = d => MONTHS[d.getMonth()] + " " + d.getDate();
+  const when = +s.w.a === +s.w.b ? f(s.w.a) : f(s.w.a) + " – " + f(s.w.b);
+  return `<article class="season${s.w.on ? " is-on" : ""}">
+    <img src="img/${s.id}_sm.jpg" alt="${s.name} banner" loading="lazy" width="600" height="300">
+    <div class="body">
+      <h3>${s.name} ${chip}</h3>
+      <div class="when">${when}</div>
+      <div class="tok">Token: <b>${s.token}</b>${s.note ? " · " + s.note : ""} · <code class="cmd">/${s.cmd}</code></div>
+    </div></article>`;
+}).join("");
+
+// Links that don't exist yet stay visibly "coming soon".
+function setLink(id, url, soon) {
+  const a = document.getElementById(id);
+  if (url) { a.href = url; } else { a.setAttribute("aria-disabled", "true"); a.textContent = soon; a.removeAttribute("href"); }
+}
+setLink("discordBtn", CONFIG.discordUrl, "Discord coming soon");
+setLink("donateBtn", CONFIG.donateUrl, "Donations coming soon");
+
+const addr = document.getElementById("addr");
+const copyBtn = document.getElementById("copyBtn");
+if (CONFIG.serverAddress) {
+  addr.textContent = "client.connect " + CONFIG.serverAddress;
+  copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(addr.textContent).then(
+      () => { copyBtn.textContent = "Copied"; setTimeout(() => copyBtn.textContent = "Copy", 1500); },
+      () => { const r = document.createRange(); r.selectNodeContents(addr); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+    );
+  });
+} else {
+  copyBtn.hidden = true;
+}
+</script>
+</body>
+</html>
