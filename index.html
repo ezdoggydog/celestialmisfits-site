@@ -102,7 +102,7 @@ p { margin: 0 0 12px; }
 /* Creed */
 .creed { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: center; }
 .creed > div { min-width: 0; }
-.creed img { width: 100%; border-radius: 50%; box-shadow: 0 20px 60px -20px #000; }
+.creed img { width: 100%; max-width: 300px; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 50%; box-shadow: 0 20px 60px -20px #000; justify-self: end; }
 @media (max-width: 760px) { .creed { grid-template-columns: 1fr; } .creed img { max-width: 260px; justify-self: center; } }
 
 /* Seasons */
