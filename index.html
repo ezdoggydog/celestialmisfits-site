@@ -307,6 +307,9 @@ const SEASONS = [
   { id: "hanukkah",     name: "Hanukkah",              rule: "hanukkah", before: 1, after: 7, token: "Hanukkah Gelt", cmd: "gelt", page: "hanukkah.html" }
 ];
 
+// Every season has its own page (built from Seasons.json).
+SEASONS.forEach(s => { s.page = s.page || s.id + ".html"; });
+
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const md = s => s.split("-").map(Number);
 const fmt = s => { const [m, d] = md(s); return MONTHS[m - 1] + " " + d; };

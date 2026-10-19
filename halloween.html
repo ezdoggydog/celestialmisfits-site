@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Halloween on Celestial Misfits</title>
+<meta name="description" content="Halloween on Celestial Misfits: when it runs, how to earn Ectoplasm, the commands and the prizes.">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Season page (built by build.py from Seasons.json; edit the script, not this file). The site's night sky,
+   tinted with this season's color. Banner, then when / about / how it works / earn / commands / prizes. */
+:root {
+  --sky: #0a1028; --sky-2: #121a3d; --sky-3: #1b2552;
+  --moon: #efe4c8; --moon-dim: #b9b2a0; --rust: #d0612e; --gold: #f0b94a;
+  --season: #9b59ff;
+  --display: "Bungee", "Arial Black", Impact, sans-serif;
+  --body: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
+  color-scheme: dark;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--sky); color: var(--moon); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+a { color: var(--gold); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.top { border-bottom: 1px solid var(--sky-3); }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--moon); font-family: var(--display); font-size: 15px; }
+.brand img { width: 34px; height: 34px; border-radius: 50%; }
+.top nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
+.top nav a { color: var(--moon-dim); text-decoration: none; font-size: 14px; font-weight: 500; }
+.top nav a:hover, .top nav a[aria-current] { color: var(--moon); }
+
+.banner { padding-block: 22px 0; }
+.banner img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--sky-3); }
+
+.intro { padding-block: 26px 6px; display: grid; gap: 10px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; color: var(--season); letter-spacing: .14em; text-transform: uppercase; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(32px, 6vw, 56px); line-height: 1.02; margin: 0; text-wrap: balance; }
+.lead { color: var(--moon-dim); max-width: 64ch; margin: 0; font-size: 17px; }
+.when { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 4px; }
+.pill { font-family: var(--mono); font-size: 13px; border: 1px solid var(--season); color: var(--moon); border-radius: 999px; padding: 4px 12px; font-variant-numeric: tabular-nums; }
+.pill.on { background: var(--season); color: #06101f; font-weight: 700; }
+.when .note { color: var(--moon-dim); font-size: 14px; }
+
+main { padding-block: 20px 40px; display: grid; gap: 18px; }
+.card { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; padding: 18px 20px; }
+.card h2 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font-size: 22px; }
+.card p { margin: 6px 0; color: var(--moon-dim); max-width: 70ch; }
+.card p b { color: var(--moon); font-weight: 500; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.two > * { min-width: 0; }
+
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { text-align: left; padding: 9px 0; border-top: 1px solid var(--sky-3); vertical-align: top; }
+th { font-family: var(--mono); font-size: 11.5px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--moon-dim); border-top: 0; padding-top: 4px; }
+td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 12px; }
+th.n { text-align: right; padding-left: 12px; }
+td.big { color: var(--gold); font-weight: 700; }
+
+.cmds { list-style: none; margin: 4px 0 0; padding: 0; }
+.cmds li { display: grid; grid-template-columns: minmax(150px, 220px) 1fr; gap: 4px 16px; padding: 10px 0; border-top: 1px solid var(--sky-3); }
+.cmds li > * { min-width: 0; }
+.cmds code { font-family: var(--mono); font-size: 13.5px; color: var(--gold); background: #060a1c; border: 1px solid var(--sky-3); border-radius: 6px; padding: 3px 8px; justify-self: start; align-self: start; overflow-wrap: anywhere; cursor: pointer; }
+.cmds code:hover { border-color: var(--gold); }
+
+.soon { border: 1px dashed var(--season); border-radius: 10px; padding: 12px 14px; color: var(--moon-dim); }
+.years { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.years span { font-family: var(--mono); font-size: 13px; color: var(--moon-dim); border: 1px solid var(--sky-3); border-radius: 8px; padding: 4px 10px; font-variant-numeric: tabular-nums; }
+.years b { color: var(--moon); font-weight: 500; }
+.fun { color: var(--moon-dim); font-size: 14px; font-style: italic; }
+
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--gold); color: #1a1406; font-weight: 700; font-size: 14px; padding: 8px 14px; border-radius: 8px; }
+footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; border-top: 1px solid var(--sky-3); }
+@media (max-width: 720px) {
+  .two { grid-template-columns: 1fr; }
+  .cmds li { grid-template-columns: 1fr; }
+  .top nav { margin-left: 0; }
+}
+
+.guide { margin: 6px 0 0; padding-left: 20px; color: var(--moon-dim); max-width: 70ch; }
+.guide li { margin: 4px 0; }
+.title { margin-top: 14px; border: 1px solid var(--season); border-radius: 10px; padding: 12px 14px; background: color-mix(in srgb, var(--season) 10%, transparent); }
+.tname { font-family: var(--display); font-size: 20px; }
+.title p { margin: 6px 0 0; }
+.title code, .card p code { font-family: var(--mono); font-size: 13px; color: var(--gold); }
+.note { font-size: 14px; }
+.lifeline { border-left: 3px solid var(--gold); padding-left: 12px; }
+.solemn .lead { font-style: normal; }
+.neighbors { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.neighbors a { text-decoration: none; }
+.neighbors a:hover { text-decoration: underline; }
+</style>
+</head>
+<body class="">
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/icon.png" alt="">Celestial Misfits</a>
+    <nav aria-label="Site">
+      <a href="index.html#about">About</a>
+      <a href="index.html#seasons" aria-current="page">Seasons</a>
+      <a href="guide.html">Player guide</a>
+      <a href="index.html#donate">Donate</a>
+      <a href="help.html" style="color: var(--gold)">You're not alone</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap banner">
+  <img src="img/halloween.jpg" width="1200" height="600" alt="Celestial Misfits Halloween banner">
+</div>
+
+<section class="wrap intro">
+  <div class="eyebrow">Season · The veil is thin</div>
+  <h1>Halloween</h1>
+  <p class="lead">The veil is thin and the dead walk Celestial Misfits. Put on the ghost costume, hunt what goes bump in the night, and collect Ectoplasm: the spirit residue of everything you kill in costume.</p>
+  <div class="when">
+    <span class="pill" id="windowPill">Dates</span>
+    <span class="note" id="whenNote"></span>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <div class="two">
+    <section class="card">
+      <h2>What it's about</h2>
+      <p>The veil is thin and the dead walk the island. Put on the ghost sheet, hunt what goes bump in the night, and collect Ectoplasm, the spirit residue of everything you kill in costume.</p><p>Fill the community meter together and the Headless Horseman rides out of Grimwood. Some nights the Witching Hour doubles every drop.</p>
+      
+      
+    </section>
+    <section class="card">
+      <h2>How it works</h2>
+      <ul class="guide"><li>Wear the ghost costume. A kill only pays Ectoplasm if you, and anyone on your team who hit it, wore it.</li><li>Scarecrows pay best. Scientists, tunnel and underwater dwellers and wild animals pay too.</li><li>Witching Hour (some nights) doubles every drop.</li><li>Offer Ectoplasm to the meter (/ecto offer). When it fills, the Headless Horseman rides out of Grimwood. Everyone in costume who fights him gets paid.</li><li>Spend Ectoplasm in the shop (/ecto shop). Halloween quests pay Ectoplasm too.</li></ul>
+      <div class="years" id="years"></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Earning Ectoplasm</h2>
+    <p>Kills during the season can drop <b>Ectoplasm</b> straight into your inventory.</p>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th scope="col">Target</th><th class="n" scope="col">Chance</th><th class="n" scope="col">Ectoplasm</th></tr></thead>
+        <tbody><tr><td>Scarecrows</td><td class="n big">Always</td><td class="n big">1–2</td></tr><tr><td>Scientists</td><td class="n">30%</td><td class="n">1</td></tr><tr><td>Tunnel and underwater dwellers</td><td class="n">30%</td><td class="n">1</td></tr><tr><td>Bears, wolves, big cats, crocs</td><td class="n">35%</td><td class="n">1</td></tr><tr><td>Boars and stags</td><td class="n">20%</td><td class="n">1</td></tr><tr><td>Wild chickens</td><td class="n">10%</td><td class="n">1</td></tr></tbody>
+      </table>
+    </div>
+    <p>A kill only pays if you, and everyone on your team who hit it, wear the ghost costume.</p><p>Horses and farm chickens never drop them. Leave the poor things alone.</p><p>Some nights the Witching Hour multiplies every drop x2.</p>
+  </section>
+
+  <div class="two">
+    <section class="card">
+      <h2>Commands</h2>
+      <p>Type these in game chat. Tap one to copy it.</p>
+      <ul class="cmds"><li><code>/ecto</code><span>How many Ectoplasm you have, and what&#x27;s on</span></li><li><code>/ecto shop</code><span>What Ectoplasm can buy</span></li><li><code>/ecto buy &lt;#&gt; [times]</code><span>Buy item # from the shop, once or several times</span></li><li><code>/ecto buy title</code><span>The [Pumpkin King &#x27;YY] title, yours for life. Wear it from /chat</span></li><li><code>/ecto offer &lt;n|all&gt;</code><span>Give tokens to the community meter</span></li><li><code>/ecto top</code><span>This season&#x27;s biggest offerers</span></li><li><code>/ecto costume</code><span>Your one free costume this season</span></li></ul>
+    </section>
+    <section class="card">
+      <h2>Prizes</h2>
+      <table><thead><tr><th scope="col">Item</th><th class="n" scope="col">Ectoplasm</th></tr></thead><tbody><tr><td>Ghost Sheet</td><td class="n">3</td></tr><tr><td>Jack-o&#x27;-lantern</td><td class="n">2</td></tr><tr><td>Pumpkin Seeds x5</td><td class="n">1</td></tr><tr><td>Scarecrow</td><td class="n">5</td></tr><tr><td>Gravestone</td><td class="n">4</td></tr><tr><td>Skull Spikes</td><td class="n">6</td></tr><tr><td>Spooky Speaker</td><td class="n">8</td></tr></tbody></table><div class="title"><span class="tname" style="color:#9b59ff">[Pumpkin King <span class="yy">'26</span>]</span><p><b>The season title</b> for 15 Ectoplasm: kept for life, it survives wipes, and it can only be bought while Halloween is on. Next year's is a new one, so every year you're here adds to your collection. Wear it from <code>/chat</code>.</p></div><p class="note">The shop stays open 3 more days after the season ends.</p>
+    </section>
+  </div>
+
+  <nav class="neighbors" aria-label="Other seasons"><a href="pirate.html">← Talk Like a Pirate Day</a><a href="index.html#seasons">All seasons</a><a href="muertos.html">Día de los Muertos →</a></nav>
+
+</main>
+
+<footer>
+  <div class="wrap">Celestial Misfits, an event-driven PvE server. Questions? MoonDoggy on Discord: <b>zzmoondoggy</b></div>
+</footer>
+
+<div class="toast" id="toast" hidden>Copied</div>
+
+<script>
+// This season's dates, worked out the same way as the Seasons plugin (Central time).
+const S = {"start": "10-20", "end": "10-31", "rule": "", "before": 0, "after": 0};
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const f = d => MONTHS[d.getMonth()] + " " + d.getDate();
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+function easter(y) {
+  const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, g0 = Math.floor((b + 8) / 25), g = Math.floor((b - g0 + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), da = (h + l - 7 * m + 114) % 31 + 1;
+  return new Date(y, mo - 1, da);
+}
+function hebrewElapsed(y) {
+  const months = Math.floor((235 * y - 234) / 19), parts = 12084 + 13753 * months;
+  let day = months * 29 + Math.floor(parts / 25920);
+  if ((3 * (day + 1)) % 7 < 3) day++;
+  return day;
+}
+function hebrewNewYear(y) {
+  const a = hebrewElapsed(y - 1), b = hebrewElapsed(y), c = hebrewElapsed(y + 1);
+  return -1373427 + b + (c - b === 356 ? 2 : (b - a === 382 ? 1 : 0));
+}
+function hanukkah(year) {
+  const hy = year + 3761, ny = hebrewNewYear(hy), len = hebrewNewYear(hy + 1) - ny;
+  const rd = ny + 30 + ((len === 355 || len === 385) ? 30 : 29) + 24;
+  const epoch = new Date(Date.UTC(2000, 0, 1)); epoch.setUTCFullYear(1);
+  const d = new Date(epoch.getTime() + (rd - 1) * 864e5);
+  return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+}
+const DOW = ["sun","mon","tue","wed","thu","fri","sat"];
+function ruleDate(rule, y) {
+  if (rule === "easter") return easter(y);
+  if (rule === "hanukkah") return hanukkah(y);
+  if (/^\d\d-\d\d$/.test(rule)) { const [m, d] = rule.split("-").map(Number); return new Date(y, m - 1, d); }
+  const [n, day, mm] = rule.split("-"), m = +mm - 1, dow = DOW.indexOf(day);
+  if (n === "last") { const x = new Date(y, m + 1, 0); while (x.getDay() !== dow) x.setDate(x.getDate() - 1); return x; }
+  const x = new Date(y, m, 1); while (x.getDay() !== dow) x.setDate(x.getDate() + 1);
+  x.setDate(x.getDate() + 7 * (parseInt(n) - 1)); return x;
+}
+function win(y) {
+  if (S.rule) { const r = ruleDate(S.rule, y); return { a: addDays(r, -S.before), b: addDays(r, S.after) }; }
+  const [sm, sd] = S.start.split("-").map(Number), [em, ed] = S.end.split("-").map(Number);
+  const a = new Date(y, sm - 1, sd); let b = new Date(y, em - 1, ed);
+  if (b < a) b = new Date(y + 1, em - 1, ed);
+  return { a, b };
+}
+function centralToday() {
+  const p = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric" }).formatToParts(new Date());
+  const g = t => +p.find(x => x.type === t).value;
+  return new Date(g("year"), g("month") - 1, g("day"));
+}
+const today = centralToday();
+// Start a year back: a season can run into January.
+let y = today.getFullYear() - 1, w = win(y);
+while (today > w.b) { y++; w = win(y); }
+const on = today >= w.a && today <= w.b;
+const span = +w.a === +w.b ? f(w.a) : f(w.a) + " – " + f(w.b);
+const pill = document.getElementById("windowPill");
+pill.textContent = (on ? "On now · " : w.a.getFullYear() + ": ") + span;
+if (on) pill.classList.add("on");
+const left = Math.round((w.b - today) / 864e5), until = Math.round((w.a - today) / 864e5);
+document.getElementById("whenNote").textContent = on ? (left === 0 ? "Last day" : (left + 1) + " days left")
+  : until + (until === 1 ? " day" : " days") + " to go · Central time";
+document.getElementById("years").innerHTML = "<span>Coming years</span>" + [1, 2, 3].map(i => {
+  const ww = win(y + i);
+  return `<span><b>${ww.a.getFullYear()}</b> ${+ww.a === +ww.b ? f(ww.a) : f(ww.a) + " – " + f(ww.b)}</span>`;
+}).join("");
+// The year on the title is this season's year.
+document.querySelectorAll(".yy").forEach(e => e.textContent = "'" + String(w.a.getFullYear() % 100).padStart(2, "0"));
+
+// Tap a command to copy it.
+const toast = document.getElementById("toast");
+document.querySelectorAll(".cmds code").forEach(c => c.addEventListener("click", () => {
+  const show = () => { toast.hidden = false; setTimeout(() => toast.hidden = true, 1200); };
+  navigator.clipboard.writeText(c.textContent).then(show, () => {
+    const r = document.createRange(); r.selectNodeContents(c); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+  });
+}));
+</script>
+</body>
+</html>

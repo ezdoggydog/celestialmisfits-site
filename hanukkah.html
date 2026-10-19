@@ -4,18 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hanukkah on Celestial Misfits</title>
-<meta name="description" content="Eight nights of light on Celestial Misfits: when Hanukkah runs, how to earn Hanukkah Gelt, the commands and the prizes.">
+<meta name="description" content="Hanukkah on Celestial Misfits: when it runs, how to earn Hanukkah Gelt, the commands and the prizes.">
 <link rel="icon" href="img/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-/* Season page: the site's night sky, tinted with this season's color (Seasons.json "Color"). The banner up top,
-   then when / what / earn / commands / prizes. Copy this file for every season and change the season block. */
+/* Season page (built by build.py from Seasons.json; edit the script, not this file). The site's night sky,
+   tinted with this season's color. Banner, then when / about / how it works / earn / commands / prizes. */
 :root {
   --sky: #0a1028; --sky-2: #121a3d; --sky-3: #1b2552;
   --moon: #efe4c8; --moon-dim: #b9b2a0; --rust: #d0612e; --gold: #f0b94a;
-  --season: #4a8fe7;      /* Hanukkah blue */
+  --season: #4a8fe7;
   --display: "Bungee", "Arial Black", Impact, sans-serif;
   --body: "Archivo", "Segoe UI", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
@@ -84,9 +84,22 @@ footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; bord
   .cmds li { grid-template-columns: 1fr; }
   .top nav { margin-left: 0; }
 }
+
+.guide { margin: 6px 0 0; padding-left: 20px; color: var(--moon-dim); max-width: 70ch; }
+.guide li { margin: 4px 0; }
+.title { margin-top: 14px; border: 1px solid var(--season); border-radius: 10px; padding: 12px 14px; background: color-mix(in srgb, var(--season) 10%, transparent); }
+.tname { font-family: var(--display); font-size: 20px; }
+.title p { margin: 6px 0 0; }
+.title code, .card p code { font-family: var(--mono); font-size: 13px; color: var(--gold); }
+.note { font-size: 14px; }
+.lifeline { border-left: 3px solid var(--gold); padding-left: 12px; }
+.solemn .lead { font-style: normal; }
+.neighbors { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.neighbors a { text-decoration: none; }
+.neighbors a:hover { text-decoration: underline; }
 </style>
 </head>
-<body>
+<body class="">
 
 <header class="top">
   <div class="wrap">
@@ -102,16 +115,16 @@ footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; bord
 </header>
 
 <div class="wrap banner">
-  <img src="img/hanukkah_full.jpg" width="1500" height="1009" alt="Celestial Misfits Hanukkah banner: an astronaut hound on a golden crescent moon beside a lit menorah, with dreidels and Stars of David hanging in the night sky">
+  <img src="img/hanukkah_full.jpg" width="1500" height="1009" alt="Celestial Misfits Hanukkah banner">
 </div>
 
 <section class="wrap intro">
   <div class="eyebrow">Season · Eight nights</div>
   <h1>Hanukkah</h1>
-  <p class="lead">The Festival of Lights. Eight nights remembering the rededication of the Temple in Jerusalem, and the little jar of oil that burned for eight days. On Celestial Misfits, the moon goes gold and blue, and every night of the eight you can earn <b>Hanukkah Gelt</b>.</p>
+  <p class="lead">Hanukkah, the Festival of Lights: eight nights remembering the rededication of the Temple in Jerusalem and the oil that burned for eight days. Earn Hanukkah Gelt all eight nights.</p>
   <div class="when">
     <span class="pill" id="windowPill">Dates</span>
-    <span class="note" id="candleNote"></span>
+    <span class="note" id="whenNote"></span>
   </div>
 </section>
 
@@ -119,121 +132,121 @@ footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; bord
 
   <div class="two">
     <section class="card">
-      <h2>When it runs</h2>
-      <p>Hanukkah follows the Hebrew calendar, so it lands on different dates every year. The season opens on the <b>evening of the first candle</b> and stays on for all <b>eight nights</b>. Dates are Central time.</p>
-      <div class="years" id="years"></div>
-    </section>
-
-    <section class="card">
-      <h2>What happens</h2>
-      <p>When the first candle is lit, the server wishes everyone a happy Hanukkah and the Gelt starts dropping. Log in during the season and you get a reminder of what's on.</p>
-      <p>When it ends: <b>Chag sameach</b>, and thanks for celebrating with us.</p>
+      <h2>What it's about</h2>
+      <p>When the Maccabees took back the Temple in Jerusalem, they found only enough pure oil to keep the lamp burning for one day. It burned for eight. Hanukkah, the Festival of Lights, celebrates that light with a candle added each night, fried foods, dreidels and chocolate gelt.</p><p>Here the gelt is real (well, real in Rust): kill the right things during the eight nights and you&#x27;ll find Hanukkah Gelt on them.</p>
       <p class="fun">Chanukah, Hanukkah, Hannukah? Spell it however you like. The story goes that any spelling is right, as long as it has eight letters.</p>
+      
+    </section>
+    <section class="card">
+      <h2>How it works</h2>
+      <ul class="guide"><li>Kills can drop Hanukkah Gelt: scientists, tunnel and underwater dwellers, and the big wild animals. A Bradley or a patrol helicopter pays the most.</li><li>Spend Hanukkah Gelt in /gelt shop.</li><li>It starts the evening of the first candle and runs all eight nights.</li></ul>
+      <div class="years" id="years"></div>
     </section>
   </div>
 
   <section class="card">
-    <h2>Earning Gelt</h2>
-    <p>Kills during the season can drop <b>Hanukkah Gelt</b> straight into your inventory. Bigger targets, better odds. Bradley and the patrol helicopter always pay, to whoever lands the killing blow.</p>
+    <h2>Earning Hanukkah Gelt</h2>
+    <p>Kills during the season can drop <b>Hanukkah Gelt</b> straight into your inventory. Bradley and the patrol helicopter always pay, to whoever lands the killing blow.</p>
     <div style="overflow-x:auto">
       <table>
-        <thead><tr><th>Target</th><th class="n">Chance</th><th class="n">Gelt</th></tr></thead>
-        <tbody>
-          <tr><td>Patrol helicopter</td><td class="n big">Always</td><td class="n big">5</td></tr>
-          <tr><td>Bradley APC</td><td class="n big">Always</td><td class="n big">3</td></tr>
-          <tr><td>Heavy scientists</td><td class="n">35%</td><td class="n">1</td></tr>
-          <tr><td>Scientists</td><td class="n">25%</td><td class="n">1</td></tr>
-          <tr><td>Tunnel and underwater dwellers</td><td class="n">25%</td><td class="n">1</td></tr>
-          <tr><td>Bears, wolves, big cats, crocodiles</td><td class="n">25%</td><td class="n">1</td></tr>
-          <tr><td>Boars and stags</td><td class="n">15%</td><td class="n">1</td></tr>
-        </tbody>
+        <thead><tr><th scope="col">Target</th><th class="n" scope="col">Chance</th><th class="n" scope="col">Hanukkah Gelt</th></tr></thead>
+        <tbody><tr><td>Heavy scientists</td><td class="n">35%</td><td class="n">1</td></tr><tr><td>Scientists</td><td class="n">25%</td><td class="n">1</td></tr><tr><td>Tunnel and underwater dwellers</td><td class="n">25%</td><td class="n">1</td></tr><tr><td>Bears, wolves, big cats, crocs</td><td class="n">25%</td><td class="n">1</td></tr><tr><td>Boars and stags</td><td class="n">15%</td><td class="n">1</td></tr><tr><td>Bradley APC (the one who kills it)</td><td class="n big">Always</td><td class="n big">3</td></tr><tr><td>Patrol helicopter (the one who kills it)</td><td class="n big">Always</td><td class="n big">5</td></tr></tbody>
       </table>
     </div>
-    <p>Chickens and horses never drop Gelt. Leave the poor things alone.</p>
+    <p>Horses and farm chickens never drop them. Leave the poor things alone.</p>
   </section>
 
   <div class="two">
     <section class="card">
       <h2>Commands</h2>
       <p>Type these in game chat. Tap one to copy it.</p>
-      <ul class="cmds">
-        <li><code>/gelt</code><span>How much Gelt you have, and what's on</span></li>
-        <li><code>/gelt shop</code><span>See what Gelt can buy</span></li>
-        <li><code>/gelt buy &lt;#&gt; [times]</code><span>Buy item # from the shop (optionally several)</span></li>
-      </ul>
+      <ul class="cmds"><li><code>/gelt</code><span>How many Hanukkah Gelt you have, and what&#x27;s on</span></li><li><code>/gelt shop</code><span>What Hanukkah Gelt can buy</span></li><li><code>/gelt buy &lt;#&gt; [times]</code><span>Buy item # from the shop, once or several times</span></li><li><code>/gelt buy title</code><span>The [Keeper of the Flame &#x27;YY] title, yours for life. Wear it from /chat</span></li></ul>
     </section>
-
     <section class="card">
       <h2>Prizes</h2>
-      <p>Spend your Gelt in the season shop with <b>/gelt shop</b>.</p>
-      <div class="soon">The Gelt shop is being stocked. Check back before the first candle.</div>
+      <div class="soon">The shop is being stocked. Check back before the season starts.</div><div class="title"><span class="tname" style="color:#4a8fe7">[Keeper of the Flame <span class="yy">'26</span>]</span><p><b>The season title</b> for 15 Hanukkah Gelt: kept for life, it survives wipes, and it can only be bought while Hanukkah is on. Next year's is a new one, so every year you're here adds to your collection. Wear it from <code>/chat</code>.</p></div>
     </section>
   </div>
+
+  <nav class="neighbors" aria-label="Other seasons"><a href="christmas.html">← Christmas</a><a href="index.html#seasons">All seasons</a><a href="newyear.html">New Year&#x27;s →</a></nav>
 
 </main>
 
 <footer>
-  <div class="wrap">
-    <a href="index.html#seasons">← All seasons</a> · Celestial Misfits, an event-driven PvE server.
-  </div>
+  <div class="wrap">Celestial Misfits, an event-driven PvE server. Questions? MoonDoggy on Discord: <b>zzmoondoggy</b></div>
 </footer>
 
 <div class="toast" id="toast" hidden>Copied</div>
 
 <script>
-// Hanukkah dates, the same arithmetic the Seasons plugin uses: 25 Kislev on the Hebrew calendar.
-// The season opens the evening before (first candle) and runs 7 days past 25 Kislev (eight nights).
-const DAYS_BEFORE = 1, DAYS_AFTER = 7;
+// This season's dates, worked out the same way as the Seasons plugin (Central time).
+const S = {"start": "12-01", "end": "12-08", "rule": "hanukkah", "before": 1, "after": 7};
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const f = d => MONTHS[d.getMonth()] + " " + d.getDate();
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+function easter(y) {
+  const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, g0 = Math.floor((b + 8) / 25), g = Math.floor((b - g0 + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), da = (h + l - 7 * m + 114) % 31 + 1;
+  return new Date(y, mo - 1, da);
+}
 function hebrewElapsed(y) {
-  const months = Math.floor((235 * y - 234) / 19);
-  const parts = 12084 + 13753 * months;
+  const months = Math.floor((235 * y - 234) / 19), parts = 12084 + 13753 * months;
   let day = months * 29 + Math.floor(parts / 25920);
   if ((3 * (day + 1)) % 7 < 3) day++;
   return day;
 }
 function hebrewNewYear(y) {
   const a = hebrewElapsed(y - 1), b = hebrewElapsed(y), c = hebrewElapsed(y + 1);
-  const fix = c - b === 356 ? 2 : (b - a === 382 ? 1 : 0);
-  return -1373427 + b + fix;
+  return -1373427 + b + (c - b === 356 ? 2 : (b - a === 382 ? 1 : 0));
 }
-function kislev25(year) {                       // a local-time Date
+function hanukkah(year) {
   const hy = year + 3761, ny = hebrewNewYear(hy), len = hebrewNewYear(hy + 1) - ny;
-  const cheshvan = (len === 355 || len === 385) ? 30 : 29;
-  const rd = ny + 30 + cheshvan + 24;           // Rata Die (day 1 = Jan 1, year 1)
-  const base = new Date(Date.UTC(2000, 0, 1)); base.setUTCFullYear(1);
-  const d = new Date(base.getTime() + (rd - 1) * 864e5);
+  const rd = ny + 30 + ((len === 355 || len === 385) ? 30 : 29) + 24;
+  const epoch = new Date(Date.UTC(2000, 0, 1)); epoch.setUTCFullYear(1);
+  const d = new Date(epoch.getTime() + (rd - 1) * 864e5);
   return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
 }
-const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
-const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const f = d => MONTHS[d.getMonth()] + " " + d.getDate();
+const DOW = ["sun","mon","tue","wed","thu","fri","sat"];
+function ruleDate(rule, y) {
+  if (rule === "easter") return easter(y);
+  if (rule === "hanukkah") return hanukkah(y);
+  if (/^\d\d-\d\d$/.test(rule)) { const [m, d] = rule.split("-").map(Number); return new Date(y, m - 1, d); }
+  const [n, day, mm] = rule.split("-"), m = +mm - 1, dow = DOW.indexOf(day);
+  if (n === "last") { const x = new Date(y, m + 1, 0); while (x.getDay() !== dow) x.setDate(x.getDate() - 1); return x; }
+  const x = new Date(y, m, 1); while (x.getDay() !== dow) x.setDate(x.getDate() + 1);
+  x.setDate(x.getDate() + 7 * (parseInt(n) - 1)); return x;
+}
+function win(y) {
+  if (S.rule) { const r = ruleDate(S.rule, y); return { a: addDays(r, -S.before), b: addDays(r, S.after) }; }
+  const [sm, sd] = S.start.split("-").map(Number), [em, ed] = S.end.split("-").map(Number);
+  const a = new Date(y, sm - 1, sd); let b = new Date(y, em - 1, ed);
+  if (b < a) b = new Date(y + 1, em - 1, ed);
+  return { a, b };
+}
 function centralToday() {
-  const parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric" }).formatToParts(new Date());
-  const g = t => +parts.find(p => p.type === t).value;
+  const p = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric" }).formatToParts(new Date());
+  const g = t => +p.find(x => x.type === t).value;
   return new Date(g("year"), g("month") - 1, g("day"));
 }
-const win = y => { const k = kislev25(y); return { a: addDays(k, -DAYS_BEFORE), b: addDays(k, DAYS_AFTER) }; };
-
 const today = centralToday();
-// Last year's eight nights can run into early January (Dec 24, 2027 to Jan 1, 2028), so start a year back.
+// Start a year back: a season can run into January.
 let y = today.getFullYear() - 1, w = win(y);
 while (today > w.b) { y++; w = win(y); }
 const on = today >= w.a && today <= w.b;
+const span = +w.a === +w.b ? f(w.a) : f(w.a) + " – " + f(w.b);
 const pill = document.getElementById("windowPill");
-pill.textContent = (on ? "On now · " : y + ": ") + f(w.a) + " – " + f(w.b);
+pill.textContent = (on ? "On now · " : w.a.getFullYear() + ": ") + span;
 if (on) pill.classList.add("on");
-const note = document.getElementById("candleNote");
-if (on) {
-  const night = Math.round((today - w.a) / 864e5) + 1;
-  note.textContent = night <= 8 ? "Night " + night + " of 8" : "Last day";
-} else {
-  const until = Math.round((w.a - today) / 864e5);
-  note.textContent = "First candle the evening of " + f(w.a) + " · " + until + (until === 1 ? " day" : " days") + " to go";
-}
-document.getElementById("years").innerHTML = [0, 1, 2, 3].map(i => {
+const left = Math.round((w.b - today) / 864e5), until = Math.round((w.a - today) / 864e5);
+document.getElementById("whenNote").textContent = on ? (left === 0 ? "Last day" : (left + 1) + " days left")
+  : until + (until === 1 ? " day" : " days") + " to go · Central time";
+document.getElementById("years").innerHTML = "<span>Coming years</span>" + [1, 2, 3].map(i => {
   const ww = win(y + i);
-  return `<span><b>${y + i}</b> ${f(ww.a)} – ${f(ww.b)}</span>`;
+  return `<span><b>${ww.a.getFullYear()}</b> ${+ww.a === +ww.b ? f(ww.a) : f(ww.a) + " – " + f(ww.b)}</span>`;
 }).join("");
+// The year on the title is this season's year.
+document.querySelectorAll(".yy").forEach(e => e.textContent = "'" + String(w.a.getFullYear() % 100).padStart(2, "0"));
 
 // Tap a command to copy it.
 const toast = document.getElementById("toast");
