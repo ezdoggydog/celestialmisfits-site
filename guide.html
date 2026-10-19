@@ -132,10 +132,11 @@ const TOPICS = [
     ["/board", "Today's contracts, this week's, the featured one, and when they roll over"],
     ["/difficulty", "Open the difficulty window: your level and when you can change it"],
     ["/difficulty <level>", "Pick easy, medium, hard, elite, expert or nightmare. Harder pays more RP. You can change once every 24 hours."],
-    ["/difficulty credit", "Your summon credit and payback rate"]
+    ["/difficulty credit", "Your summon credit and payback rate"],
+    ["(fights)", "Whoever hits an NPC, animal, heli or Bradley first sets its difficulty for the whole fight: everyone who joins deals and takes damage at that level, and the kill pays no more than that level."]
   ]},
   { id: "chat", title: "Chat and friends", blurb: "Private messages, ignore lists and your chat settings.", cmds: [
-    ["/chat", "Open your chat settings"],
+    ["/chat", "Open your chat settings, and wear any title you own (or none)"],
     ["/pm <name> <message>", "Send a private message"],
     ["/r <message>", "Reply to your last private message"],
     ["/ignore <name>", "Ignore (or stop ignoring) someone's private messages"],
@@ -146,6 +147,7 @@ const TOPICS = [
     ["/ecto", "Your tokens, whether you're in costume, the community meter"],
     ["/ecto shop", "What tokens buy"],
     ["/ecto buy <#> [times]", "Buy item # from the shop"],
+    ["/ecto buy title", "This season's title, like [Pumpkin King '26]. Yours for life, survives wipes, and only sold while the season is on. Wear it from /chat."],
     ["/ecto offer <n|all>", "Give tokens to the community meter. When it fills, something big happens (Halloween: the Headless Horseman rides)."],
     ["/ecto top", "This season's biggest offerers"],
     ["/ecto costume", "Your one free costume this season"],
@@ -164,7 +166,8 @@ const TOPICS = [
     ["/ega", "Marine Corps Birthday (Nov 3 – 10): Eagle, Globe & Anchor, kept for life"],
     ["/flag", "Veterans Day (Nov 11): Helmet & Folded Flag"],
     ["/wishbone", "Thanksgiving week (Monday to Sunday): Wishbones"],
-    ["/candy", "Christmas (Dec 15 – 26): Candy Canes"]
+    ["/candy", "Christmas (Dec 15 – 26): Candy Canes"],
+    ["/gelt", "Hanukkah (eight nights, dates move each year): Hanukkah Gelt. See the Hanukkah page."]
   ]},
   { id: "halloween", title: "Halloween nights", tag: "Halloween", blurb: "Trick-or-treating, the Soul Lantern run and a few things that go bump in the night.", cmds: [
     ["/hw status", "What's going on tonight"],
@@ -200,12 +203,12 @@ const TOPICS = [
     ["/wild lifetime", "How long legends roam before fleeing"],
     ["/wild spawntime", "The wait between legends"]
   ]},
-  { id: "horses", title: "Horses", blurb: "Claim horses, breed them for better genes and new coats, and raise foals.", cmds: [
+  { id: "horses", title: "Horses", blurb: "Claim horses, breed two of your own for better genes and new coats, and raise foals.", cmds: [
     ["/claim", "Look at a horse and take ownership (also /hclaim)"],
     ["/hunclaim", "Look at your horse and let it go"],
-    ["/claim foal", "Hold a Foal Token (or look at its crate): the foal appears in front of you"],
+    ["/claim foal", "Hold a Foal Token (or look at its crate): the foal appears in front of you. Also /breed foal."],
     ["/breed", "Help"],
-    ["/breed select", "Look at a horse you own and select it. Do it twice, for two horses."],
+    ["/breed select", "Look at a horse you've claimed and select it. Do it twice, for two of your horses."],
     ["/breed start", "Start breeding the selected pair (they must be close together)"],
     ["/breed status", "Who's breeding, time left, foals, predicted genes"],
     ["/breed info", "Look at a horse: its owner and genes"],
