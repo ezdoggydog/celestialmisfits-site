@@ -115,6 +115,10 @@ p { margin: 0 0 12px; }
 .season .tok { font-size: 13.5px; color: var(--moon-dim); }
 .season .tok b { color: var(--moon); font-weight: 500; }
 .season .tok .cmd { font-family: var(--mono); font-size: 12.5px; color: var(--gold); }
+
+.season > a { display: block; }
+.season h3 a { color: var(--moon); text-decoration: none; border-bottom: 1px solid var(--gold); }
+.season h3 a:hover { color: var(--gold); }
 .chip { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; border: 1px solid currentColor; }
 .chip.on { color: var(--gold); }
 .chip.next { color: var(--rust); }
@@ -299,7 +303,8 @@ const SEASONS = [
   { id: "usmc",         name: "Marine Corps Birthday", start: "11-03", end: "11-10", token: "Eagle, Globe & Anchor", cmd: "ega", note: "Kept for life" },
   { id: "veterans",     name: "Veterans Day",          start: "11-11", end: "11-11", token: "Helmet & Folded Flag", cmd: "flag" },
   { id: "thanksgiving", name: "Thanksgiving",          rule: "4th-thu-11", before: 3, after: 3, token: "Wishbone", cmd: "wishbone" },
-  { id: "christmas",    name: "Christmas",             start: "12-15", end: "12-26", token: "Candy Cane", cmd: "candy" }
+  { id: "christmas",    name: "Christmas",             start: "12-15", end: "12-26", token: "Candy Cane", cmd: "candy" },
+  { id: "hanukkah",     name: "Hanukkah",              rule: "hanukkah", before: 1, after: 7, token: "Hanukkah Gelt", cmd: "gelt", page: "hanukkah.html" }
 ];
 
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -321,8 +326,27 @@ function easter(y) {
   return new Date(y, mo - 1, da);
 }
 const DOW = ["sun","mon","tue","wed","thu","fri","sat"];
+// Hanukkah: 25 Kislev on the Hebrew calendar (same arithmetic as the Seasons plugin).
+function hebrewElapsed(y) {
+  const months = Math.floor((235 * y - 234) / 19), parts = 12084 + 13753 * months;
+  let day = months * 29 + Math.floor(parts / 25920);
+  if ((3 * (day + 1)) % 7 < 3) day++;
+  return day;
+}
+function hebrewNewYear(y) {
+  const a = hebrewElapsed(y - 1), b = hebrewElapsed(y), c = hebrewElapsed(y + 1);
+  return -1373427 + b + (c - b === 356 ? 2 : (b - a === 382 ? 1 : 0));
+}
+function hanukkah(year) {
+  const hy = year + 3761, ny = hebrewNewYear(hy), len = hebrewNewYear(hy + 1) - ny;
+  const rd = ny + 30 + ((len === 355 || len === 385) ? 30 : 29) + 24;
+  const base = new Date(Date.UTC(2000, 0, 1)); base.setUTCFullYear(1);
+  const d = new Date(base.getTime() + (rd - 1) * 864e5);
+  return new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+}
 function ruleDate(rule, y) {
   if (rule === "easter") return easter(y);
+  if (rule === "hanukkah") return hanukkah(y);
   const [n, day, mm] = rule.split("-"), m = +mm - 1, dow = DOW.indexOf(day);
   if (n === "last") { const x = new Date(y, m + 1, 0); while (x.getDay() !== dow) x.setDate(x.getDate() - 1); return x; }
   const x = new Date(y, m, 1); while (x.getDay() !== dow) x.setDate(x.getDate() + 1);
@@ -369,9 +393,9 @@ grid.innerHTML = list.map(s => {
   const f = d => MONTHS[d.getMonth()] + " " + d.getDate();
   const when = +s.w.a === +s.w.b ? f(s.w.a) : f(s.w.a) + " – " + f(s.w.b);
   return `<article class="season${s.w.on ? " is-on" : ""}">
-    <img src="img/${s.id}_sm.jpg" alt="${s.name} banner" loading="lazy" width="600" height="300">
+    ${s.page ? `<a href="${s.page}" tabindex="-1" aria-hidden="true">` : ""}<img src="img/${s.id}_sm.jpg" alt="${s.name} banner" loading="lazy" width="600" height="300">${s.page ? "</a>" : ""}
     <div class="body">
-      <h3>${s.name} ${chip}</h3>
+      <h3>${s.page ? `<a href="${s.page}">${s.name}</a>` : s.name} ${chip}</h3>
       <div class="when">${when}</div>
       <div class="tok">Token: <b>${s.token}</b>${s.note ? " · " + s.note : ""} · <code class="cmd">/${s.cmd}</code></div>
     </div></article>`;
