@@ -215,8 +215,9 @@ function centralToday() {
 const win = y => { const k = kislev25(y); return { a: addDays(k, -DAYS_BEFORE), b: addDays(k, DAYS_AFTER) }; };
 
 const today = centralToday();
-let y = today.getFullYear(), w = win(y);
-if (today > w.b) { y++; w = win(y); }
+// Last year's eight nights can run into early January (Dec 24, 2027 to Jan 1, 2028), so start a year back.
+let y = today.getFullYear() - 1, w = win(y);
+while (today > w.b) { y++; w = win(y); }
 const on = today >= w.a && today <= w.b;
 const pill = document.getElementById("windowPill");
 pill.textContent = (on ? "On now · " : y + ": ") + f(w.a) + " – " + f(w.b);
