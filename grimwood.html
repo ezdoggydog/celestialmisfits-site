@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grimwood Mutual Policy</title>
+<meta name="description" content="Grimwood Mutual pre-need funeral indemnity, Policy Form GM-1: the coverage, the exclusions, Rider G-7 and the fine print. We'll bury you.">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Grimwood Mutual: an old, rust-stained policy document laid on the site's night sky. One look (dark), set on purpose.
+   The fine print is the joke, so it reads like a real policy: numbered sections, definitions, a schedule. */
+:root {
+  --sky: #0a1028; --sky-2: #121a3d; --sky-3: #1b2552;
+  --moon: #efe4c8; --moon-dim: #b9b2a0; --gold: #f0b94a;
+  --paper: #e8dcc0; --paper-2: #ddcfae; --ink: #2a1d12; --ink-dim: #5c4a36; --rust: #8a3b16; --rust-2: #b2551f; --rule: #b9a47e;
+  --fell: "IM Fell English", "Iowan Old Style", Georgia, serif;
+  --fellsc: "IM Fell English SC", "Iowan Old Style", Georgia, serif;
+  --body: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
+  color-scheme: dark;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--sky); color: var(--moon); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+a { color: var(--gold); }
+.wrap { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.top { border-bottom: 1px solid var(--sky-3); }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--moon); font-family: "Arial Black", Impact, sans-serif; font-size: 15px; }
+.brand img { width: 34px; height: 34px; border-radius: 50%; }
+.top nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
+.top nav a { color: var(--moon-dim); text-decoration: none; font-size: 14px; font-weight: 500; }
+.top nav a:hover { color: var(--moon); }
+
+/* The document */
+.doc { margin-block: 28px 40px; background:
+    radial-gradient(ellipse at 12% 8%, rgba(138,59,22,.16), transparent 40%),
+    radial-gradient(ellipse at 90% 96%, rgba(138,59,22,.20), transparent 45%),
+    linear-gradient(var(--paper), var(--paper-2));
+  color: var(--ink); border-radius: 6px; box-shadow: 0 30px 80px -30px #000, inset 0 0 0 1px rgba(0,0,0,.25);
+  padding: clamp(20px, 5vw, 56px); font-family: var(--fell); font-size: 18px; line-height: 1.6; }
+.letterhead { display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: center; padding-bottom: 18px; border-bottom: 3px double var(--rust); }
+.letterhead img { width: 132px; height: 132px; border-radius: 50%; display: block; }
+.letterhead > div { min-width: 0; }
+.org { font-family: var(--fellsc); font-size: clamp(26px, 5vw, 40px); line-height: 1.05; color: var(--rust); margin: 0; text-wrap: balance; }
+.tag { font-style: italic; color: var(--ink-dim); margin: 4px 0 0; }
+.form { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-dim); margin-top: 8px; }
+
+h1 { font-family: var(--fellsc); font-weight: 400; font-size: clamp(24px, 4vw, 32px); text-align: center; margin: 26px 0 4px; color: var(--ink); text-wrap: balance; }
+.sub { text-align: center; font-style: italic; color: var(--ink-dim); margin: 0 auto 22px; }
+h2 { font-family: var(--fellsc); font-weight: 400; font-size: 22px; color: var(--rust); margin: 30px 0 8px; border-bottom: 1px solid var(--rule); padding-bottom: 4px; }
+.doc p { margin: 8px 0; max-width: 68ch; }
+.sec { display: grid; grid-template-columns: 72px 1fr; gap: 0 14px; margin: 12px 0; }
+.sec > .no { font-family: var(--fellsc); color: var(--rust); font-size: 17px; padding-top: 2px; }
+.sec > div { min-width: 0; }
+.sec p { margin: 4px 0; }
+.sec .ruling { font-style: italic; color: var(--ink-dim); }
+.def { margin: 6px 0; }
+.def b { font-family: var(--fellsc); font-weight: 400; color: var(--ink); }
+.small { font-size: 14.5px; color: var(--ink-dim); }
+
+/* Schedule of benefits */
+.schedule { width: 100%; border-collapse: collapse; margin: 6px 0 4px; font-size: 17px; }
+.schedule th, .schedule td { text-align: left; padding: 8px 6px; border-top: 1px solid var(--rule); vertical-align: top; }
+.schedule th { font-family: var(--fellsc); font-weight: 400; color: var(--ink); width: 42%; }
+.schedule td .amt { font-family: var(--mono); font-size: 15px; color: var(--rust); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.scroll { overflow-x: auto; }
+
+.stamp { display: inline-block; transform: rotate(-6deg); border: 3px solid var(--rust-2); color: var(--rust-2); font-family: var(--fellsc); font-size: 20px; letter-spacing: .08em; padding: 2px 12px; border-radius: 4px; opacity: .85; margin: 6px 0; }
+.sign { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 34px; }
+.sign > div { min-width: 0; border-top: 1px solid var(--ink-dim); padding-top: 6px; font-size: 15px; color: var(--ink-dim); }
+.sign .hand { font-family: var(--fell); font-style: italic; font-size: 24px; color: var(--ink); border: 0; padding: 0; margin-bottom: -4px; }
+
+/* Plain-English card: outside the document, in the site's own voice. */
+.plain { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+.plain h2 { font-family: var(--body); font-weight: 700; color: var(--moon); font-size: 18px; border: 0; margin: 0 0 6px; padding: 0; }
+.plain p { margin: 6px 0; color: var(--moon-dim); max-width: 72ch; }
+.plain .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; margin-top: 8px; }
+.plain ul { margin: 4px 0 0; padding-left: 18px; color: var(--moon-dim); }
+.plain li { margin: 3px 0; }
+.plain b { color: var(--moon); font-weight: 500; }
+.yes { color: #8fd18f; } .no2 { color: #ff8866; }
+.cmds { list-style: none; padding: 0; margin: 10px 0 0; }
+.cmds li { display: grid; grid-template-columns: minmax(150px, 200px) 1fr; gap: 4px 14px; padding: 8px 0; border-top: 1px solid var(--sky-3); }
+.cmds li > * { min-width: 0; }
+.cmds code { font-family: var(--mono); font-size: 13.5px; color: var(--gold); background: #060a1c; border: 1px solid var(--sky-3); border-radius: 6px; padding: 3px 8px; justify-self: start; cursor: pointer; }
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--gold); color: #1a1406; font-weight: 700; font-size: 14px; padding: 8px 14px; border-radius: 8px; }
+footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; border-top: 1px solid var(--sky-3); }
+
+@media (max-width: 640px) {
+  .letterhead { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .letterhead img { width: 110px; height: 110px; }
+  .sec { grid-template-columns: 1fr; }
+  .plain .cols, .sign { grid-template-columns: 1fr; }
+  .cmds li { grid-template-columns: 1fr; }
+  .top nav { margin-left: 0; }
+  .doc { font-size: 17px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/icon.png" alt="">Celestial Misfits</a>
+    <nav aria-label="Site">
+      <a href="index.html#about">About</a>
+      <a href="index.html#seasons">Seasons</a>
+      <a href="guide.html#insurance">Player guide</a>
+      <a href="index.html#donate">Donate</a>
+      <a href="help.html" style="color: var(--gold)">You're not alone</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <article class="doc" aria-labelledby="title">
+    <div class="letterhead">
+      <img src="img/grimwood_logo.jpg" width="480" height="480" alt="Grimwood Mutual seal: a coffin beneath a dead tree, ringed in rusted iron, with the motto We'll bury you">
+      <div>
+        <p class="org">Grimwood Mutual</p>
+        <p class="tag">Assurance Society of Grimwood Hollow &middot; &ldquo;We&rsquo;ll bury you.&rdquo;</p>
+        <div class="form">Policy Form GM-1 &middot; Pre-Need Funeral Indemnity &middot; Rev. 1.5.1</div>
+      </div>
+    </div>
+
+    <h1 id="title">Certificate of Pre-Need Funeral Indemnity</h1>
+    <p class="sub">Read this policy carefully. The Undertaker did.</p>
+
+    <p>This Certificate is issued by Grimwood Mutual (hereinafter &ldquo;the Society,&rdquo; &ldquo;We,&rdquo; &ldquo;Us,&rdquo; or &ldquo;the Undertaker,&rdquo; as the occasion and the lighting require) to the person named on the application (hereinafter &ldquo;the Insured,&rdquo; &ldquo;You,&rdquo; or, in due course, &ldquo;the Deceased&rdquo;) in consideration of the premium, which has been received, counted twice, and spent.</p>
+
+    <h2>Schedule of Benefits</h2>
+    <div class="scroll">
+      <table class="schedule">
+        <tbody>
+          <tr><th scope="row">Premium</th><td><span class="amt">50 scrap</span>, payable in advance, non-refundable in the event of approval, non-approval, death, weather, or regret.</td></tr>
+          <tr><th scope="row">Rider G-7 (Avian)</th><td><span class="amt">15 scrap</span>, optional, and for reasons that will become clear, recommended.</td></tr>
+          <tr><th scope="row">Death Benefit</th><td><span class="amt">120 scrap</span>, plus one (1) complimentary headstone. Engraving not included.</td></tr>
+          <tr><th scope="row">Review Period</th><td><span class="amt">10 minutes</span> from application.</td></tr>
+          <tr><th scope="row">Waiting Period</th><td><span class="amt">60 minutes</span> from approval. Rider G-7 observes its own.</td></tr>
+          <tr><th scope="row">Underwriting Interval</th><td><span class="amt">6 hours</span> after any paid claim, during which Your file is under actuarial review.</td></tr>
+          <tr><th scope="row">Term</th><td>Until death, payment of benefit, or the end of the world (a new map), whichever comes first. One of them will.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Article I &middot; Definitions</h2>
+    <p class="def"><b>Death</b> means the cessation of the Insured, in whole or in substantial part, as reflected by the Insured waking up somewhere else without their belongings.</p>
+    <p class="def"><b>Covered Cause</b> means any cause of Death not excluded below. There are fewer of these than You were hoping.</p>
+    <p class="def"><b>Killing Blow</b> means the final injury, its type, and its author, as recorded by the island itself. The island does not lie, and neither, in this one respect, do We.</p>
+    <p class="def"><b>Poultry</b> means any chicken, hen, rooster, or bird the Undertaker deems sufficiently chicken.</p>
+    <p class="def"><b>Fowl of Title or Rank</b> means General Cluck, his officers, and any bird holding a commission, a legend, a bounty, or a grudge.</p>
+    <p class="def"><b>Associate</b> means the Insured&rsquo;s teammates, friends, neighbors, and anyone who has ever waved at the Insured from a safe distance.</p>
+    <p class="def"><b>Device</b> means any turret, trap, ballista, landmine, shotgun trap, flame turret, or other contraption whose loyalty was assumed.</p>
+
+    <h2>Article II &middot; Coverage</h2>
+    <div class="sec"><div class="no">&sect; 1</div><div>
+      <p>Subject to every Article that follows, and some that may yet be written, the Society shall pay the Death Benefit upon the Insured&rsquo;s respawn following Death by a Covered Cause, enclosed in a letter of condolence addressed to the Insured personally, who will, against all odds, be available to receive it.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 2</div><div>
+      <p>Covered Causes include, without limitation and without enthusiasm: scientists, heavy scientists, tunnel and underwater dwellers, bears, wolves, big cats, crocodiles, the patrol helicopter, Bradley, and any other hostility of the island not authored by the Insured, the Insured&rsquo;s Associates, the Insured&rsquo;s own Devices, nature, sleep, or Poultry.</p>
+    </div></div>
+
+    <h2>Article III &middot; Exclusions and Conditions</h2>
+    <div class="sec"><div class="no">&sect; 3</div><div>
+      <p><b>Review.</b> Each application is placed under review for the Review Period. Should the Applicant expire during review, the application is declined on the grounds that the Applicant is deceased. The premium is retained as a processing fee, the processing having been considerable.</p>
+      <p class="ruling">&ldquo;Application declined. Applicant deceased.&rdquo;</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 3(a)</div><div>
+      <p><b>Pre-Existing Conditions.</b> Any Death occurring within the Waiting Period is presumed to arise from a pre-existing condition, the condition being mortality, which the Insured had at the time of application and did not disclose.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 4</div><div>
+      <p><b>Self-Inflicted Injury.</b> Excluded: falling, drowning, voluntary departure, and the Insured&rsquo;s own explosives. Gravity is not an act of God. It is an act of the Insured, who chose the ledge.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 4(b)</div><div>
+      <p><b>Home Security.</b> Excluded: injury by any Device owned by the Insured or an Associate.</p>
+      <p class="ruling">&ldquo;We are pleased to report that it works.&rdquo;</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 5</div><div>
+      <p><b>Natural Causes.</b> Excluded: cold, heat, hunger, thirst, and radiation, all of which the Society regards as lifestyle choices.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 5(a)</div><div>
+      <p><b>Repose.</b> Death while asleep, by any hand or by any means, is classified as natural causes and excluded. It is, after all, the most natural cause of all.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 6</div><div>
+      <p><b>Unexplained Departure.</b> A Death without a Killing Blow (the Insured simply ceasing, by the hand of the server, an administrator, or forces unknown) is held pending investigation. Such investigations have never concluded. The Society is confident they never will.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 7</div><div>
+      <p><b>Poultry.</b> Excluded: any incident involving Poultry, howsoever undignified.</p>
+      <p><b>Rider G-7</b> (&ldquo;Supplemental Avian Incident Coverage&rdquo;) reinstates coverage for common Poultry, but not for Fowl of Title or Rank, whose conduct the Society declines to insure at any price. Rider G-7 is subject to its own review and its own waiting period, and may not be purchased during an ongoing incident with a bird.</p>
+      <p class="ruling">&ldquo;The chicken did not wait.&rdquo;</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 8</div><div>
+      <p><b>Fellow Residents.</b> Excluded: Death caused by any other resident of the island, by any means: hand, fire, projectile, siege engine, or Device. The Society does not insure disagreements, nor arrangements between friends to have them.</p>
+    </div></div>
+
+    <h2>Article IV &middot; Claims</h2>
+    <div class="sec"><div class="no">&sect; 9</div><div>
+      <p>One (1) benefit is payable per policy, whereupon the policy is fulfilled, the Insured is congratulated, and a new application will not be entertained until the Underwriting Interval has elapsed.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 9(a)</div><div>
+      <p>A denied claim is marked, at no additional charge, by a temporary grave at the place of Death, standing for five (5) minutes as a courtesy to passers-by and a lesson to the Insured. The grave may not be picked up, sold, or taken home.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 10</div><div>
+      <p>All correspondence, including approvals, denials, and condolences, is delivered by post to the Insured&rsquo;s inbox. The Society writes beautifully and is rarely brief.</p>
+    </div></div>
+
+    <h2>Article V &middot; General Provisions</h2>
+    <div class="sec"><div class="no">&sect; 11</div><div>
+      <p><b>Termination.</b> All policies terminate upon the end of the world (a new map). The Society is not liable for the end of the world, having priced it in.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 12</div><div>
+      <p><b>Severability.</b> Should any provision of this policy be found unenforceable, it shall be replaced with one less enforceable still.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 13</div><div>
+      <p><b>Interpretation.</b> Headings are for convenience. Words mean what the Undertaker says they mean. Ambiguities are resolved in favor of the Society, which drafted them for that purpose.</p>
+    </div></div>
+    <div class="sec"><div class="no">&sect; 14</div><div>
+      <p><b>Disputes.</b> All disputes are settled in the Chancery of Grimwood Hollow, before the Undertaker, who has never lost a case and has buried several who tried.</p>
+    </div></div>
+
+    <p style="text-align:center"><span class="stamp">Approved for Burial</span></p>
+
+    <div class="sign">
+      <div><p class="hand">The Undertaker</p>Underwriter, Grimwood Mutual</div>
+      <div><p class="hand">&nbsp;</p>The Insured (or estate)</div>
+    </div>
+    <p class="small" style="margin-top:22px">Grimwood Mutual is not a real insurance company, which it would like to point out is also true of several real insurance companies.</p>
+  </article>
+
+  <section class="plain" aria-labelledby="plain">
+    <h2 id="plain">In plain English</h2>
+    <p>Pay <b>50 scrap</b>. Ten minutes later you're approved (you get a letter), and an hour after that you're covered. Die to something covered and you get <b>120 scrap</b> plus a headstone in your mail when you respawn. One payout per policy, then 6 hours before you can buy another. Every policy ends at wipe.</p>
+    <div class="cols">
+      <div>
+        <p class="yes"><b>Pays</b></p>
+        <ul>
+          <li>Scientists and every other NPC</li>
+          <li>Bears, wolves, big cats, crocodiles, boars</li>
+          <li>The patrol helicopter and Bradley</li>
+          <li>Common chickens, if you bought <b>Rider G-7</b> (15 scrap) and its own hour has passed</li>
+        </ul>
+      </div>
+      <div>
+        <p class="no2"><b>Doesn't pay</b></p>
+        <ul>
+          <li>Dying in the first 10 minutes (review) or the hour after (waiting)</li>
+          <li>Falls, drowning, <code>/kill</code>, your own explosives</li>
+          <li>Your own or your team's turrets and traps</li>
+          <li>Cold, heat, hunger, thirst, radiation</li>
+          <li>Dying asleep, or with no killing blow</li>
+          <li>Other players, by any means</li>
+          <li>Chickens without the rider, and General Cluck's crew even with it</li>
+        </ul>
+      </div>
+    </div>
+    <ul class="cmds">
+      <li><code>/mutual</code><span>The brochure: price, payout, your status</span></li>
+      <li><code>/mutual buy</code><span>Apply for a policy (50 scrap)</span></li>
+      <li><code>/mutual rider</code><span>Add Rider G-7 (15 scrap)</span></li>
+      <li><code>/mutual policy</code><span>This policy, in game</span></li>
+      <li><code>/mutual mail</code><span>Your letters (they also arrive in /inbox)</span></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap"><a href="guide.html#insurance">Player guide</a> · <a href="index.html">Back to Celestial Misfits</a> · Questions? MoonDoggy on Discord: <b>zzmoondoggy</b></div>
+</footer>
+
+<div class="toast" id="toast" hidden>Copied</div>
+<script>
+const toast = document.getElementById("toast");
+document.querySelectorAll(".cmds code").forEach(c => c.addEventListener("click", () => {
+  const show = () => { toast.hidden = false; setTimeout(() => toast.hidden = true, 1200); };
+  navigator.clipboard.writeText(c.textContent).then(show, () => {
+    const r = document.createRange(); r.selectNodeContents(c); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+  });
+}));
+</script>
+</body>
+</html>

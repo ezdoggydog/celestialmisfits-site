@@ -178,7 +178,7 @@ const TOPICS = [
     ["/gr", "Ghost Rider: set your horse ablaze, flaming skull and all. On or off."],
     ["/grspeed [1-5]", "Your Ghost Rider speed (no number shows it)"]
   ]},
-  { id: "insurance", title: "Grimwood Mutual", blurb: "Funeral insurance from the Undertaker of Grimwood Hollow. Pay a premium in scrap; die of a covered cause and the policy pays when you respawn. Read the fine print. Seriously, read it.", cmds: [
+  { id: "insurance", title: "Grimwood Mutual", blurb: "Funeral insurance from the Undertaker of Grimwood Hollow. Pay a premium in scrap; die of a covered cause and the policy pays when you respawn. Read the fine print. Seriously, read it.", link: ["grimwood.html", "The full policy (Form GM-1) →"], cmds: [
     ["/mutual", "The brochure: what it costs, what it pays, your status"],
     ["/mutual buy", "Apply for a policy"],
     ["/mutual rider", "Add Rider G-7 (Supplemental Avian Incident Coverage)"],
@@ -293,7 +293,7 @@ function render(q) {
     const isCmd = t.id !== "weapons";
     return `<section class="topic" id="${t.id}">
       <header><h2>${esc(t.title)}</h2>${t.tag ? `<span class="tag">${esc(t.tag)}</span>` : ""}</header>
-      <p class="blurb">${hl(t.blurb, q)}</p>
+      <p class="blurb">${hl(t.blurb, q)}${t.link ? ` <a href="${t.link[0]}">${esc(t.link[1])}</a>` : ""}</p>
       <ul class="cmds">${rows.map(([c, d]) => `<li>${isCmd ? `<code tabindex="0" role="button" title="Copy">${hl(c, q)}</code>` : `<strong>${hl(c, q)}</strong>`}<span>${hl(d, q)}</span></li>`).join("")}</ul>
     </section>`;
   }).join("") || `<p class="empty">Nothing matches "${esc(q)}". Try fewer letters, or ask in Discord.</p>`;
