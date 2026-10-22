@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Celestial Misfits Weekly Review</title>
+<meta name="description" content="What's new on Celestial Misfits and The Dark Side this week, and what's coming next.">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Same night sky as the rest of the site. Server cards, then one review per week (newest open). */
+:root {
+  --sky: #0a1028; --sky-2: #121a3d; --sky-3: #1b2552;
+  --moon: #efe4c8; --moon-dim: #b9b2a0; --rust: #d0612e; --gold: #f0b94a; --ok: #7fd48a;
+  --display: "Bungee", "Arial Black", Impact, sans-serif;
+  --body: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
+  color-scheme: dark;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--sky); color: var(--moon); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+a { color: var(--gold); }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.top { border-bottom: 1px solid var(--sky-3); }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--moon); font-family: var(--display); font-size: 15px; }
+.brand img { width: 34px; height: 34px; border-radius: 50%; }
+.top nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
+.top nav a { color: var(--moon-dim); text-decoration: none; font-size: 14px; font-weight: 500; }
+.top nav a:hover, .top nav a[aria-current] { color: var(--moon); }
+
+.intro { padding-block: 36px 10px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; color: var(--rust); letter-spacing: .14em; text-transform: uppercase; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 5vw, 48px); line-height: 1.05; margin: 6px 0 10px; text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 400; font-size: 22px; margin: 0; text-wrap: balance; }
+h3 { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin: 18px 0 6px; font-weight: 500; }
+.lead { color: var(--moon-dim); max-width: 64ch; margin: 0; }
+
+.servers { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; padding-block: 18px 6px; }
+.server { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+.server img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; display: block; background: #060a1c; }
+.server .body { padding: 14px 16px 16px; display: grid; gap: 8px; }
+.server p { margin: 0; color: var(--moon-dim); font-size: 15px; }
+.connect { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.connect code { font-family: var(--mono); font-size: 13.5px; color: var(--gold); background: #060a1c; border: 1px solid var(--sky-3); border-radius: 6px; padding: 4px 9px; overflow-wrap: anywhere; }
+.connect button { font: 500 13px var(--body); color: var(--moon); background: var(--sky-3); border: 1px solid var(--sky-3); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+.connect button:hover { border-color: var(--moon-dim); }
+.facts { display: flex; gap: 6px 16px; flex-wrap: wrap; font-size: 14px; color: var(--moon-dim); }
+.facts b { color: var(--moon); font-weight: 500; }
+
+main { padding-block: 18px 40px; display: grid; gap: 16px; }
+details.week { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; }
+details.week > summary { list-style: none; cursor: pointer; padding: 16px 20px; display: flex; gap: 10px 14px; align-items: baseline; flex-wrap: wrap; }
+details.week > summary::-webkit-details-marker { display: none; }
+details.week > summary::before { content: "+"; font-family: var(--mono); color: var(--gold); width: 1ch; }
+details.week[open] > summary::before { content: "\2212"; }
+.dates { font-family: var(--mono); font-size: 13px; color: var(--moon-dim); }
+.week .content { padding: 0 20px 18px; }
+.week .headline { color: var(--moon); margin: 0 0 4px; max-width: 70ch; }
+ul.items { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+ul.items li { padding-left: 18px; position: relative; max-width: 72ch; }
+ul.items li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 7px; height: 7px; border-radius: 2px; background: var(--rust); transform: rotate(45deg); }
+ul.items li b { color: var(--moon); }
+ul.items li span { color: var(--moon-dim); }
+ul.items code { font-family: var(--mono); font-size: 13px; color: var(--gold); }
+
+footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; border-top: 1px solid var(--sky-3); }
+@media (max-width: 640px) { .top nav { margin-left: 0; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/icon.png" alt="">Celestial Misfits</a>
+    <nav aria-label="Site">
+      <a href="index.html#about">About</a>
+      <a href="index.html#seasons">Seasons</a>
+      <a href="guide.html">Player guide</a>
+      <a href="status.html" aria-current="page">This week</a>
+      <a href="index.html#donate">Donate</a>
+      <a href="help.html" style="color: var(--gold)">You're not alone</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap intro">
+  <div class="eyebrow">Weekly review</div>
+  <h1>What's new on the Misfits</h1>
+  <p class="lead">Both servers, how to get there, and what changed this week. Newest week first.</p>
+</section>
+
+<section class="wrap servers" aria-label="Servers">
+  <article class="server">
+    <img src="img/regular.jpg" alt="Celestial Misfits banner: a bloodhound in a patched space helmet on the moon">
+    <div class="body">
+      <h2>Celestial Misfits</h2>
+      <p>The main server. PvE, events, seasons, livestock, legends and a lot of bad ideas.</p>
+      <div class="connect"><code>client.connect celestialmisfits.joinmyga.me</code><button type="button" data-copy="client.connect celestialmisfits.joinmyga.me">Copy</button></div>
+      <div class="facts"><span>Wipe: <b>first Thursday, 1 PM Central</b></span></div>
+    </div>
+  </article>
+  <article class="server">
+    <img src="img/darkside/banner_1024x512.png" alt="The Dark Side banner: the bloodhound in raid gear in front of a burning fortress on the moon">
+    <div class="body">
+      <h2>The Dark Side</h2>
+      <p>The raid server. Raidable Bases from Easy to Nightmare. Still PvE: you raid the bases, not each other. Take the portal from Misfits and bring your gear.</p>
+      <div class="connect"><code>client.connect darkside.joinmyga.me</code><button type="button" data-copy="client.connect darkside.joinmyga.me">Copy</button></div>
+      <div class="facts"><span>Portal: <b>/portals</b> on Misfits</span></div>
+    </div>
+  </article>
+</section>
+
+<main class="wrap" id="weeks"></main>
+
+<footer>
+  <div class="wrap">Questions? MoonDoggy on Discord: <b>zzmoondoggy</b> · <a href="guide.html">Player guide</a> · <a href="index.html">Back to Celestial Misfits</a></div>
+</footer>
+
+<script>
+// One entry per week, newest first. Each week: dates, a headline, then sections of items.
+const WEEKS = [
+  {
+    dates: "Oct 16 – 22, 2026",
+    title: "Halloween wipe, the Dark Side, and a rocket called Kamikaze",
+    headline: "Fresh Halloween wipe on Oct 22, a new name for our raid server, and a vehicle shop with almost everything in it.",
+    sections: [
+      { name: "New", items: [
+        ["Halloween wipe (Oct 22)", "Same map, fresh start. Halloween runs through Oct 31: earn Ectoplasm with /ecto."],
+        ["The Dark Side", "Our raid server has a new name, banner and icon. Rusty Pranks is retired."],
+        ["Vehicle shop: 170+ vehicles", "Karuza's whole lineup is in /vb (or /vehicle): cars, copters, trucks, karts, a flying broom, the Spookopter, a rocket chair... Your vehicle arrives as an item that may look like a box, or even a coffin. Place it, or use Spawn in My Vehicles."],
+        ["The Kamikaze", "A homemade rocket with a cockpit. It flies once. It can't hurt other players or bases, and Grimwood Mutual is still investigating."],
+        ["Exploding cows", "The CattlePult's cow now goes off like C4 when it lands. No refunds."],
+        ["Special Delivery Special", "A bolt-action rifle that sends a C4 from your inventory with every shot. 8 seconds between C4 shots."],
+        ["Ageless livestock", "/lm ageless keep stops an adult from dying of old age; /lm ageless keep herd does your whole herd, up to your limit. /lm young keep keeps calves small."]
+      ]},
+      { name: "Better", items: [
+        ["Smoother server", "A week of tuning: the main server now runs at about 60 FPS where it used to sit in the 40s."],
+        ["Shop messages you can see", "Every vehicle shop action (bought, not enough scrap, recalled, picked up) now pops up as a banner on screen."]
+      ]},
+      { name: "Coming soon", items: [
+        ["Hall of Titles", "Raider titles by difficulty (Doorknocker to Nightmare Raider) and the Banzai titles for Kamikaze pilots, with a page showing who holds what."],
+        ["Raids that count at home", "Raids finished on the Dark Side will pay RP and earn titles on Misfits."],
+        ["Chat across both servers", "Global, team and clan chat shared between Misfits and the Dark Side. Team and clan messages only reach your own teammates."],
+        ["Skywriting", "Planes that leave smoke trails in the sky."],
+        ["The Colony", "An alien world. No air, low gravity, very funny ways to arrive. In the works; not this wipe."]
+      ]}
+    ]
+  }
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const host = document.getElementById("weeks");
+WEEKS.forEach((w, i) => {
+  const d = document.createElement("details");
+  d.className = "week";
+  if (i === 0) d.open = true;
+  d.innerHTML = `<summary><h2>${esc(w.title)}</h2><span class="dates">${esc(w.dates)}</span></summary>
+    <div class="content"><p class="headline">${esc(w.headline)}</p>
+    ${w.sections.map(s => `<h3>${esc(s.name)}</h3><ul class="items">${s.items.map(([t, x]) =>
+      `<li><b>${esc(t)}.</b> <span>${esc(x)}</span></li>`).join("")}</ul>`).join("")}</div>`;
+  host.appendChild(d);
+});
+
+document.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "Copied"; }
+  catch { b.textContent = "Select it"; }
+  setTimeout(() => b.textContent = "Copy", 1500);
+}));
+</script>
+</body>
+</html>
