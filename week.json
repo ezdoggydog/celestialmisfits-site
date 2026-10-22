@@ -38,6 +38,10 @@
             [
               "Ageless livestock",
               "/lm ageless keep stops an adult from dying of old age; /lm ageless keep herd does your whole herd, up to your limit. /lm young keep keeps calves small."
+            ],
+            [
+              "What's new, in game",
+              "Type /news (or /changelog) for this page right inside Rust, plus a THIS WEEK tab in /info. You'll get a heads-up when a new week is posted."
             ]
           ]
         },
