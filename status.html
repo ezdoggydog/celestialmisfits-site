@@ -126,49 +126,28 @@ footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; bord
 </footer>
 
 <script>
-// One entry per week, newest first. Each week: dates, a headline, then sections of items.
-const WEEKS = [
-  {
-    dates: "Oct 16 – 22, 2026",
-    title: "Halloween wipe, the Dark Side, and a rocket called Kamikaze",
-    headline: "Fresh Halloween wipe on Oct 22, a new name for our raid server, and a vehicle shop with almost everything in it.",
-    sections: [
-      { name: "New", items: [
-        ["Halloween wipe (Oct 22)", "Same map, fresh start. Halloween runs through Oct 31: earn Ectoplasm with /ecto."],
-        ["The Dark Side", "Our raid server has a new name, banner and icon. Rusty Pranks is retired."],
-        ["Vehicle shop: 170+ vehicles", "Karuza's whole lineup is in /vb (or /vehicle): cars, copters, trucks, karts, a flying broom, the Spookopter, a rocket chair... Your vehicle arrives as an item that may look like a box, or even a coffin. Place it, or use Spawn in My Vehicles."],
-        ["The Kamikaze", "A homemade rocket with a cockpit. It flies once. It can't hurt other players or bases, and Grimwood Mutual is still investigating."],
-        ["Exploding cows", "The CattlePult's cow now goes off like C4 when it lands. No refunds."],
-        ["Special Delivery Special", "A bolt-action rifle that sends a C4 from your inventory with every shot. 8 seconds between C4 shots."],
-        ["Ageless livestock", "/lm ageless keep stops an adult from dying of old age; /lm ageless keep herd does your whole herd, up to your limit. /lm young keep keeps calves small."]
-      ]},
-      { name: "Better", items: [
-        ["Smoother server", "A week of tuning: the main server now runs at about 60 FPS where it used to sit in the 40s."],
-        ["Shop messages you can see", "Every vehicle shop action (bought, not enough scrap, recalled, picked up) now pops up as a banner on screen."]
-      ]},
-      { name: "Coming soon", items: [
-        ["Hall of Titles", "Raider titles by difficulty (Doorknocker to Nightmare Raider) and the Banzai titles for Kamikaze pilots, with a page showing who holds what."],
-        ["Raids that count at home", "Raids finished on the Dark Side will pay RP and earn titles on Misfits."],
-        ["Chat across both servers", "Global, team and clan chat shared between Misfits and the Dark Side. Team and clan messages only reach your own teammates."],
-        ["Skywriting", "Planes that leave smoke trails in the sky."],
-        ["The Colony", "An alien world. No air, low gravity, very funny ways to arrive. In the works; not this wipe."]
-      ]}
-    ]
-  }
-];
-
+// The weeks live in week.json (newest first). The in-game /news window reads the same file,
+// so one edit updates both. Each week: id, dates, title, headline, sections of [title, text] items.
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const host = document.getElementById("weeks");
-WEEKS.forEach((w, i) => {
-  const d = document.createElement("details");
-  d.className = "week";
-  if (i === 0) d.open = true;
-  d.innerHTML = `<summary><h2>${esc(w.title)}</h2><span class="dates">${esc(w.dates)}</span></summary>
-    <div class="content"><p class="headline">${esc(w.headline)}</p>
-    ${w.sections.map(s => `<h3>${esc(s.name)}</h3><ul class="items">${s.items.map(([t, x]) =>
-      `<li><b>${esc(t)}.</b> <span>${esc(x)}</span></li>`).join("")}</ul>`).join("")}</div>`;
-  host.appendChild(d);
-});
+function render(weeks) {
+  host.innerHTML = "";
+  weeks.forEach((w, i) => {
+    const d = document.createElement("details");
+    d.className = "week";
+    if (w.id) d.id = "w" + w.id;
+    if (i === 0) d.open = true;
+    d.innerHTML = `<summary><h2>${esc(w.title)}</h2><span class="dates">${esc(w.dates)}</span></summary>
+      <div class="content"><p class="headline">${esc(w.headline)}</p>
+      ${w.sections.map(s => `<h3>${esc(s.name)}</h3><ul class="items">${s.items.map(([t, x]) =>
+        `<li><b>${esc(t)}.</b> <span>${esc(x)}</span></li>`).join("")}</ul>`).join("")}</div>`;
+    host.appendChild(d);
+  });
+}
+fetch("week.json", { cache: "no-cache" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data => render(data.weeks || []))
+  .catch(() => { host.innerHTML = '<p class="lead">This week\'s review didn\'t load. Refresh the page, or ask in Discord.</p>'; });
 
 document.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", async () => {
   try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = "Copied"; }
