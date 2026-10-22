@@ -76,6 +76,8 @@ h1 em { font-style: normal; color: var(--rust); }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; border: 1px solid var(--sky-3); color: var(--moon); background: var(--sky-2); cursor: pointer; font-family: var(--body); }
 .btn:hover { border-color: var(--moon-dim); }
+.btn.news { border-color: var(--gold); color: var(--gold); }
+.btn.news:hover { background: var(--sky-3); }
 .btn.primary { background: var(--rust); border-color: var(--rust); color: #1a0d06; }
 .btn.primary:hover { background: #e2733e; }
 .btn[aria-disabled="true"] { opacity: .55; cursor: default; pointer-events: none; }
@@ -182,6 +184,7 @@ footer .wrap { display: flex; gap: 12px 24px; flex-wrap: wrap; justify-content: 
       <div class="actions">
         <div class="addr"><code id="addr">Server address coming soon</code><button class="btn" id="copyBtn" type="button">Copy</button></div>
         <a class="btn primary" id="discordBtn" href="#" target="_blank" rel="noopener">Join the Discord</a>
+        <a class="btn news" href="status.html">What's new this week</a>
         <a class="btn" href="guide.html">Player guide: every command</a>
       </div>
     </div>
