@@ -227,10 +227,21 @@ const TOPICS = [
     ["/lm pardon <player>", "Forgive someone; your turrets leave them alone"],
     ["/lm carry", "Pick up the calf or lamb you're looking at"],
     ["/lm place [number]", "Put it down where you're looking"],
+    ["/lm young keep", "Look at a calf or lamb: it never grows up. /lm young release [all] lets it grow"],
+    ["/lm ageless keep", "Look at an adult: it stops aging, so it won't die of old age (adults live about 72 hours otherwise)"],
+    ["/lm ageless keep herd", "Every adult in your herd stops aging at once, up to your ageless limit"],
+    ["/lm ageless", "Your ageless animals and how many you can have"],
+    ["/lm ageless release [all]", "Let it (or all of yours) age normally again"],
     ["/rodeo", "Look at an adult bull (or a sheep, for mutton busting) and climb on. Lean with A and D. Last 8 seconds."],
     ["/rodeo top [sheep]", "The leaderboard"],
     ["/rodeo stats", "Your own record"],
     ["/rodeo unstick", "If you're stuck sliding after a throw"]
+  ]},
+  { id: "vehicles", title: "Vehicle shop", blurb: "Buy cars, copters, trucks, karts and stranger things (a flying broom, a rocket chair...). When you buy one (or pick one up), it goes into your inventory as an item that may look like a box, or even a coffin: that's your vehicle. Place it like a box, or use Spawn in My Vehicles. A banner at the top of the screen tells you what happened every time.", cmds: [
+    ["/vb", "Open the vehicle shop (/mvm and /vehicle work too)"],
+    ["My Vehicles: Spawn", "Bring out a vehicle you own"],
+    ["My Vehicles: Recall", "Call your vehicle back to you"],
+    ["My Vehicles: Pickup", "Stand near it to pack it back into your inventory (empty it first)"]
   ]},
   { id: "pirates", title: "Pirates", blurb: "A pirate ship sails the Deep Sea now and then, with a crew, cannons and a captain's chest.", cmds: [
     ["/pirates", "Where the ship is, how far and which way, crew left and time left; or when the next sighting is due"]
