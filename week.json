@@ -59,6 +59,10 @@
             [
               "Shop messages you can see",
               "Every vehicle shop action (bought, not enough scrap, recalled, picked up) now pops up as a banner on screen."
+            ],
+            [
+              "Stacks, the same on both servers",
+              "Resources, ammo, food, meds, explosives and deployables stack 1,000 times higher than normal Rust (scrap to 1,000,000). Guns, armor, clothes and tools no longer stack: one per slot, so skins, attachments and condition stay intact."
             ]
           ]
         },
