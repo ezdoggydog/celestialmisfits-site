@@ -123,166 +123,9 @@ footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; bord
 <div class="toast" id="toast" hidden>Copied</div>
 
 <script>
-// One entry per topic. tag = when it's available (optional).
-const TOPICS = [
-  { id: "lifeline", title: "You're not alone", blurb: "Private. Only you see these, nothing goes to global chat.", cmds: [
-    ["/lifeline", "The crisis lines (988; veterans: 988 then press 1) and how to reach MoonDoggy. Also /988."],
-    ["/lifeline talk [message]", "Quietly tells MoonDoggy you'd like to talk. Nobody else sees it, and your words are never saved."]
-  ]},
-  { id: "basics", title: "Getting around", blurb: "The server panel has the welcome, the current season, the wipe countdown and your mail.", cmds: [
-    ["/info", "Open the server panel (also /help or /zp)"],
-    ["/news", "What's new this week (also /changelog). Same as celestialmisfits.com/week"],
-    ["/board", "Today's contracts, this week's, the featured one, and when they roll over"],
-    ["/difficulty", "Open the difficulty window: your level and when you can change it"],
-    ["/difficulty <level>", "Pick easy, medium, hard, elite, expert or nightmare. Harder pays more RP. You can change once every 24 hours. In a fight, whoever hits first sets the level for everyone who joins: damage both ways, and the most the kill pays."],
-    ["/difficulty credit", "Your summon credit and payback rate"]
-  ]},
-  { id: "chat", title: "Chat and friends", blurb: "Private messages, ignore lists and your chat settings.", cmds: [
-    ["/chat", "Open your chat settings, and wear any title you own (or none)"],
-    ["/pm <name> <message>", "Send a private message"],
-    ["/r <message>", "Reply to your last private message"],
-    ["/ignore <name>", "Ignore (or stop ignoring) someone's private messages"],
-    ["/online", "Who's online"],
-    ["/report", "How to report a player"]
-  ]},
-  { id: "seasons", title: "Seasons and tokens", blurb: "Each season has its own token and its own command: /ecto for Halloween, /ega for the Marine Corps Birthday, and so on. The examples use /ecto; swap in the season's command. The Season tab in /info shows the current one.", cmds: [
-    ["/ecto", "Your tokens, whether you're in costume, the community meter"],
-    ["/ecto shop", "What tokens buy"],
-    ["/ecto buy <#> [times]", "Buy item # from the shop"],
-    ["/ecto buy title", "This season's title, like [Pumpkin King '26]. Yours for life, survives wipes, and only sold while the season is on. Wear it from /chat."],
-    ["/ecto offer <n|all>", "Give tokens to the community meter. When it fills, something big happens (Halloween: the Headless Horseman rides)."],
-    ["/ecto top", "This season's biggest offerers"],
-    ["/ecto costume", "Your one free costume this season"],
-    ["/ega", "Marine Corps Birthday: your Eagle, Globe & Anchor. Earned in combat, kept for life, and its shop is open all year."]
-  ]},
-  { id: "season-cmds", title: "Each season's command", blurb: "Use these the same way as /ecto above (shop, buy, offer...). Only the season that's on, or whose shop is still open, answers.", cmds: [
-    ["/boom", "New Year's (Dec 30 – Jan 2): Firecrackers"],
-    ["/heart", "Valentine's (Feb 7 – 14): Rusty Hearts"],
-    ["/egg", "Easter week, ending Easter Sunday: Chipped Eggs"],
-    ["/plaque", "Memorial Day week, ending on the last Monday of May: Memorial Plaques"],
-    ["/liberty", "4th of July (Jul 1 – 7): Liberty Scrolls"],
-    ["/hardhat", "Labor Day week, ending on the first Monday of September: Hard Hats & Hammers"],
-    ["/doubloon", "Talk Like a Pirate Day (Sep 17 – 21): Doubloons"],
-    ["/ecto", "Halloween (Oct 20 – 31): Ectoplasm"],
-    ["/skull", "Día de los Muertos (Nov 1 – 2): Sugar Skulls"],
-    ["/ega", "Marine Corps Birthday (Nov 3 – 10): Eagle, Globe & Anchor, kept for life"],
-    ["/flag", "Veterans Day (Nov 11): Helmet & Folded Flag"],
-    ["/wishbone", "Thanksgiving week (Monday to Sunday): Wishbones"],
-    ["/candy", "Christmas (Dec 15 – 26): Candy Canes"],
-    ["/gelt", "Hanukkah (eight nights, dates move each year): Hanukkah Gelt. See the Hanukkah page."]
-  ]},
-  { id: "halloween", title: "Halloween nights", tag: "Halloween", blurb: "Trick-or-treating, the Soul Lantern run and a few things that go bump in the night.", cmds: [
-    ["/hw status", "What's going on tonight"],
-    ["/hw open", "Hang your treat lantern (look at your door). /hw close takes it down."],
-    ["/hw treat", "Answer a knock with a treat"],
-    ["/hw trick", "Answer a knock with a trick"],
-    ["/hw doorbell", "Make the speaker or alarm you're looking at your doorbell"],
-    ["/hw lantern", "Start the Soul Lantern run"],
-    ["/gr", "Ghost Rider: set your horse ablaze, flaming skull and all. On or off."],
-    ["/grspeed [1-5]", "Your Ghost Rider speed (no number shows it)"]
-  ]},
-  { id: "insurance", title: "Grimwood Mutual", blurb: "Funeral insurance from the Undertaker of Grimwood Hollow. Pay a premium in scrap; die of a covered cause and the policy pays when you respawn. Read the fine print. Seriously, read it.", link: ["grimwood.html", "The full policy (Form GM-1) →"], cmds: [
-    ["/mutual", "The brochure: what it costs, what it pays, your status"],
-    ["/mutual buy", "Apply for a policy"],
-    ["/mutual rider", "Add Rider G-7 (Supplemental Avian Incident Coverage)"],
-    ["/mutual policy", "The full policy, every section"],
-    ["/mutual mail", "Opens your inbox with your letters from Grimwood Mutual"]
-  ]},
-  { id: "wild", title: "Wild animals and legends", blurb: "Animals have names. Some are legends, there's a weekly boss, and a superboss once a wipe.", cmds: [
-    ["/wild", "Help, and the name of the animal you're looking at"],
-    ["/wild tags [on|off]", "Turn name tags on or off"],
-    ["/wild count", "Named animals by kind"],
-    ["/wild next", "When the next legend is due, or which one is loose"],
-    ["/wild boss", "This week's boss: not yet, out there, or beaten by whom"],
-    ["/wild claude", "The superboss (also /wild superboss)"],
-    ["/wild fight", "Who has claimed a boss fight"],
-    ["/wild fight invite <player>", "Let a player into your claimed fight; they share the bounty"],
-    ["/wild fight open", "Let anyone join your fight"],
-    ["/wild fight leave", "Give up your claim"],
-    ["/wild top [all]", "Top hunters this wipe (or all time)"],
-    ["/wild stats [player]", "Your (or their) hunting stats and rank"],
-    ["/wild range", "How far away tags show"],
-    ["/wild lifetime", "How long legends roam before fleeing"],
-    ["/wild spawntime", "The wait between legends"]
-  ]},
-  { id: "horses", title: "Horses", blurb: "Claim horses, breed two of your own for better genes and new coats, and raise foals.", cmds: [
-    ["/claim", "Look at a horse and take ownership (also /hclaim)"],
-    ["/hunclaim", "Look at your horse and let it go"],
-    ["/claim foal", "Hold a Foal Token (or look at its crate): the foal appears in front of you. Also /breed foal."],
-    ["/breed", "Help"],
-    ["/breed select", "Look at a horse you've claimed and select it. Do it twice, for two of your horses."],
-    ["/breed start", "Start breeding the selected pair (they must be close together)"],
-    ["/breed status", "Who's breeding, time left, foals, predicted genes"],
-    ["/breed info", "Look at a horse: its owner and genes"],
-    ["/breed clear", "Forget your selection"],
-    ["/breed cancel", "Stop the active breeding"]
-  ]},
-  { id: "livestock", title: "Livestock and the rodeo", blurb: "Your herd, its family tree, the turrets that guard it, and a bull that would like you off its back.", cmds: [
-    ["/lm", "Open the livestock window: your herd and settings"],
-    ["/lm help", "Your guard turrets and any strikes against you"],
-    ["/lm family", "Look at an animal: parents, siblings, offspring"],
-    ["/lm limit", "Your herd size and limit"],
-    ["/lm limit mine <number>", "Choose your own herd size, up to the cap"],
-    ["/lm show", "30-second overlay of your turrets and protected zones"],
-    ["/lm strikes", "Who has strikes against this base (stand in your base)"],
-    ["/lm log [player]", "The last 10 things that happened to your herd"],
-    ["/lm wanted", "Everyone who's hurt your herd, ranked"],
-    ["/lm pardon <player>", "Forgive someone; your turrets leave them alone"],
-    ["/lm carry", "Pick up the calf or lamb you're looking at"],
-    ["/lm place [number]", "Put it down where you're looking"],
-    ["/lm young keep", "Look at a calf or lamb: it never grows up. /lm young release [all] lets it grow"],
-    ["/lm ageless keep", "Look at an adult: it stops aging, so it won't die of old age (adults live about 72 hours otherwise)"],
-    ["/lm ageless keep herd", "Every adult in your herd stops aging at once, up to your ageless limit"],
-    ["/lm ageless", "Your ageless animals and how many you can have"],
-    ["/lm ageless release [all]", "Let it (or all of yours) age normally again"],
-    ["/rodeo", "Look at an adult bull (or a sheep, for mutton busting) and climb on. Lean with A and D. Last 8 seconds."],
-    ["/rodeo top [sheep]", "The leaderboard"],
-    ["/rodeo stats", "Your own record"],
-    ["/rodeo unstick", "If you're stuck sliding after a throw"]
-  ]},
-  { id: "vehicles", title: "Vehicle shop", blurb: "Buy cars, copters, trucks, karts and stranger things (a flying broom, a rocket chair...). When you buy one (or pick one up), it goes into your inventory as an item that may look like a box, or even a coffin: that's your vehicle. Place it like a box, or use Spawn in My Vehicles. A banner at the top of the screen tells you what happened every time.", cmds: [
-    ["/vb", "Open the vehicle shop (/mvm and /vehicle work too)"],
-    ["My Vehicles: Spawn", "Bring out a vehicle you own"],
-    ["My Vehicles: Recall", "Call your vehicle back to you"],
-    ["My Vehicles: Pickup", "Stand near it to pack it back into your inventory (empty it first)"]
-  ]},
-  { id: "pirates", title: "Pirates", blurb: "A pirate ship sails the Deep Sea now and then, with a crew, cannons and a captain's chest.", cmds: [
-    ["/pirates", "Where the ship is, how far and which way, crew left and time left; or when the next sighting is due"]
-  ]},
-  { id: "trucker", title: "Trucker Event", blurb: "Now and then trailers appear at a monument with a drop zone and a timer. You need a Semi Truck to tow them: buy one in the vehicle shop (/vb). Drive up to a trailer to hook it, haul it into the drop zone with someone at the wheel, and earn trucker points and XP. Lose the trailer and you lose XP.", cmds: [
-    ["/vb", "The vehicle shop: buy your Semi Truck here"],
-    ["/trucker", "Trucker leaderboard, your rank and stats, and the points store"],
-    ["/truckerstats", "Your own trucker stats"]
-  ]},
-  { id: "roast", title: "Death Roast", blurb: "Die badly and someone shows up to tell you about it.", cmds: [
-    ["/roast", "Help, and whether roasts are on for you"],
-    ["/roast on", "Opt in (/roast off to opt out)"],
-    ["/roast stats", "Your deaths, roasts and top categories"],
-    ["/roast top [category]", "The Hall of Shame"],
-    ["/roast again", "Replay your last roast"],
-    ["/rb [message]", "Talk back to your roaster (also /roast back)"],
-    ["/roast hire", "Send a heckler to whoever last killed you"]
-  ]},
-  { id: "portals", title: "Server portals", blurb: "Portals that carry you, and your gear, to other servers.", cmds: [
-    ["/portals", "The portals you can use"],
-    ["/portal errornumber", "Your last transfer code, if something went wrong. Give it to an admin."],
-    ["/portal speed", "How long you wait on a portal pad: 5, 10, 15 (recommended) or 30 seconds. Change it once every 24 hours. Stepping off the pad or getting hurt cancels the trip."]
-  ]},
-  { id: "raids", title: "Raidable Bases", blurb: "Raidable Bases are on our OTHER server, not this one. Take the portal to get there (/portals shows it), and take your gear with you. It's still PvE: you raid the bases, not other players. Raid difficulty (Easy to Nightmare) is how tough the BASE is; your /difficulty level is separate and is about you. Vehicles can't be driven into a raid.", cmds: [
-    ["/portals", "Find the portal to the raid server"],
-    ["/rb", "On the raid server: your raid stats and the leaderboard"],
-    ["/buyraid", "On the raid server: buy a raid of your own (locked to you and your friends)"]
-  ]},
-  { id: "weapons", title: "Custom weapons", blurb: "No commands needed. Hold one and fire. Every rocket uses a rocket from your inventory.", cmds: [
-    ["Hellfire M249", "Fires rockets. Double damage against helicopters."],
-    ["Thumper", "Mortar: a lead rocket, then a six-rocket barrage. Needs 7 rockets."],
-    ["Yeet Machine", "Catapult: boulders plus up to four C4 from your inventory"],
-    ["CattlePult", "Catapult: throws a cow. The cow explodes when it lands. No refunds."],
-    ["Special Delivery Special", "Bolt-action rifle: every shot also sends a C4 from your inventory that sticks and blows. 8 seconds between C4 shots"],
-    ["My Precioussss", "Pistol: high-velocity rockets"],
-    ["Hail Mary", "Eoka: one rocket, then it breaks"]
-  ]}
-];
+// The topics live in commands.json (also read by the in-game COMMANDS tab, so one edit updates both).
+// Each topic: id, title, blurb, optional tag and link [href, text], cmds: [[command, what it does], ...].
+let TOPICS = [];
 
 const topicsEl = document.getElementById("topics");
 const chipsEl = document.getElementById("chips");
@@ -314,7 +157,10 @@ function render(q) {
     </section>`;
   }).join("") || `<p class="empty">Nothing matches "${esc(q)}". Try fewer letters, or ask in Discord.</p>`;
 }
-render("");
+fetch("commands.json", { cache: "no-cache" })
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(d => { TOPICS = d.topics || []; render(document.getElementById("q").value || ""); })
+  .catch(() => { topicsEl.innerHTML = '<p class="empty">The command list didn\'t load. Refresh the page, or ask in Discord.</p>'; });
 
 document.getElementById("q").addEventListener("input", e => render(e.target.value));
 
