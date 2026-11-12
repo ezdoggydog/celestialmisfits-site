@@ -114,3 +114,39 @@ people who have never heard of the server.
 - `marketing:competitive-brief` against other Rust PvE servers -- which angles nobody has claimed.
 - The things that actually drive discovery, none of which are this website: the server browser
   description and tags, BattleMetrics presence, and wipe announcements where Rust players look.
+
+## Video (Nov 12, 2026)
+
+`videos.html` is the preview page. Thumbnails are YouTube's own and the player is only fetched
+when somebody clicks one, so a page of a dozen clips loads like a page of a dozen images.
+Add a clip by putting its YouTube ID in the `CLIPS` list in that page; an entry with no ID is
+skipped, so the list doubles as the shot list.
+
+**Host on YouTube, not here.** This repo is GitHub Pages: a 100 MB hard limit per file, a 1 GB
+soft limit on the repo, and 100 GB/month of bandwidth shared across the whole site. One 4K clip
+is 116 MB on its own. YouTube is free, has no limit, and is itself the second-biggest search
+engine — a clip titled "Rust PvE server traffic system" is discovery we are not otherwise
+paying for. Make them public rather than unlisted for that reason.
+
+**Capture settings.** NVIDIA in-game capture was recording 4K at 120 fps, 62 Mbps: 116 MB for
+fifteen seconds. 1080p60 at 20-30 Mbps is the right setting for anything headed to the web, and
+re-encoding that same clip to 1080p60 brought it to 18 MB with no visible loss at the size
+anyone will watch it.
+
+### What to show, in order of what nobody else has
+
+1. **Traffic on the ring road.** Rigs, trailers, a city bus that stops at the stops. No other
+   Rust server has moving road traffic. Lead with it.
+2. **Cruise control steering itself.** Hands off the wheel through a bend, braking for the
+   truck ahead. This reads as impossible to anyone who plays Rust, which is exactly why it
+   works as the thing people send each other.
+3. **The sky crane with a slung load.** A crate on a line under the hook, crossing the island.
+4. **The Veterans Day parade.** 22 vehicles, police escorts, an F-16 pass every minute. This is
+   the one that says what kind of server this is, not just what it can do.
+5. **Grimwood after dark.** Atmosphere only -- the town, the fog, the people. Nothing of the
+   story. The saga stays unspoilt.
+6. **The Headless Horseman**, once October comes round again.
+
+Keep each one 15-30 seconds and start on motion: no slow pans in, no title cards. Nothing
+needs music, and anything with music is a copyright claim waiting to happen on a channel we
+want to keep.

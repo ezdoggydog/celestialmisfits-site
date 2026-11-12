@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Videos from Celestial Misfits | Rust PvE Server</title>
+<meta name="description" content="See the Celestial Misfits Rust PvE server in motion: convoys on the ring road, cruise control that steers itself, sky crane lifts and the Veterans Day flyover.">
+<link rel="canonical" href="https://celestialmisfits.com/videos.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Celestial Misfits">
+<meta property="og:title" content="Videos from Celestial Misfits | Rust PvE Server">
+<meta property="og:description" content="See the Celestial Misfits Rust PvE server in motion: convoys on the ring road, cruise control that steers itself, sky crane lifts and the Veterans Day flyover.">
+<meta property="og:url" content="https://celestialmisfits.com/videos.html">
+<meta property="og:image" content="https://celestialmisfits.com/img/regular.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a1028">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Videos. Same night sky as the rest of the site. Thumbnails are YouTube's own; the player is
+   only loaded when somebody clicks one, so the page stays light however many clips are on it. */
+:root {
+  --sky: #0a1028; --sky-2: #121a3d; --sky-3: #1b2552;
+  --moon: #efe4c8; --moon-dim: #b9b2a0; --rust: #d0612e; --gold: #f0b94a;
+  --display: "Bungee", "Arial Black", Impact, sans-serif;
+  --body: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
+  color-scheme: dark;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--sky); color: var(--moon); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+a { color: var(--gold); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.top { border-bottom: 1px solid var(--sky-3); background: var(--sky-2); }
+.top .wrap { display: flex; align-items: center; gap: 18px; padding-block: 12px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--moon); text-decoration: none; font-family: var(--display); font-size: 18px; }
+.brand img { width: 28px; height: 28px; }
+.top nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
+.top nav a { color: var(--moon-dim); text-decoration: none; font-size: 14px; font-weight: 500; }
+.top nav a:hover { color: var(--moon); }
+.top nav a.nav-help { color: var(--gold); }
+.top nav a[aria-current] { color: var(--moon); }
+
+.hero { padding-block: 40px 10px; }
+.hero h1 { font-family: var(--display); font-size: clamp(28px, 6vw, 46px); margin: 0 0 10px; line-height: 1.05; text-wrap: balance; }
+.hero p { margin: 0; max-width: 62ch; color: var(--moon-dim); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; padding-block: 28px 10px; }
+.card { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.shot { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: var(--sky-3); border: 0; padding: 0; margin: 0; cursor: pointer; display: block; width: 100%; }
+.shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shot iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.play { position: absolute; inset: 0; display: grid; place-items: center; }
+.play span {
+  width: 62px; height: 44px; border-radius: 10px; background: rgba(10,16,40,.74);
+  border: 1px solid var(--moon-dim); display: grid; place-items: center;
+  color: var(--moon); font-size: 18px; line-height: 1;
+}
+.shot:hover .play span { background: var(--rust); border-color: var(--rust); color: #fff; }
+.meta { padding: 14px 16px 16px; }
+.meta h2 { font-family: var(--display); font-size: 16px; margin: 0 0 6px; letter-spacing: .3px; }
+.meta p { margin: 0; font-size: 14px; color: var(--moon-dim); }
+.tag { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+       color: var(--gold); border: 1px solid var(--sky-3); border-radius: 999px; padding: 2px 9px; margin-bottom: 8px; }
+
+.empty { background: var(--sky-2); border: 1px dashed var(--sky-3); border-radius: 12px; padding: 26px; color: var(--moon-dim); }
+.empty code { font-family: var(--mono); color: var(--moon); }
+
+.join { margin-block: 34px 10px; background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; padding: 22px; }
+.join h2 { font-family: var(--display); font-size: 20px; margin: 0 0 8px; }
+.join code { font-family: var(--mono); background: var(--sky-3); padding: 4px 8px; border-radius: 6px; display: inline-block; word-break: break-all; }
+
+footer { border-top: 1px solid var(--sky-3); margin-top: 46px; padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; }
+footer .wrap { display: flex; gap: 10px 22px; flex-wrap: wrap; }
+
+@media (max-width: 640px) { .top nav { margin-left: 0; gap: 14px; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/icon.png" alt="">Celestial Misfits</a>
+    <nav aria-label="Site">
+      <a href="index.html#about">About</a>
+      <a href="index.html#seasons">Seasons</a>
+      <a href="index.html#arsenal">Arsenal</a>
+      <a href="videos.html" aria-current="page">Videos</a>
+      <a href="guide.html">Player guide</a>
+      <a href="status.html">This week</a>
+      <a href="index.html#donate">Donate</a>
+      <a href="help.html" class="nav-help">You're not alone</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <h1>See it moving</h1>
+    <p>Screenshots don't do much for a server whose best parts are in motion. Here's what the
+      island actually looks like: traffic that drives itself, aircraft overhead, and the things
+      we built because nobody else had them.</p>
+  </section>
+
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>
+    No clips are published yet. Add a YouTube ID to the <code>CLIPS</code> list in this page and it
+    appears here.
+  </div>
+
+  <section class="join">
+    <h2>Come and see it in person</h2>
+    <p>PvE. No raiding, no griefing, no wipes you didn't see coming.</p>
+    <p><code>client.connect play.celestialmisfits.com</code></p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><a href="index.html">Celestial Misfits</a></span>
+    <span><a href="help.html">You're not alone: help lines, any hour</a></span>
+    <span><a href="https://www.214life.org" target="_blank" rel="noopener">214 Life</a>: our nonprofit for veterans</span>
+  </div>
+</footer>
+
+<script>
+/* Add a clip by putting its YouTube ID in `yt`. An entry with no ID is skipped, so the running
+   order below can double as the shot list -- fill them in as they go up.
+   The ID is the part after v= : youtube.com/watch?v=dQw4w9WgXcQ -> "dQw4w9WgXcQ". */
+const CLIPS = [
+  { yt: "", tag: "Traffic",    title: "The ring road at rush hour",
+    blurb: "Rigs, trailers and a city bus running a real route. They stop at the stops." },
+  { yt: "", tag: "Cruise",     title: "Hands off the wheel",
+    blurb: "Cruise control that follows the road through the bends and brakes for the truck ahead." },
+  { yt: "", tag: "Air",        title: "Sky crane with a slung load",
+    blurb: "A crate on a line, six metres under the hook, all the way across the island." },
+  { yt: "", tag: "Veterans",   title: "Veterans Day parade",
+    blurb: "Twenty-two vehicles, police escorts, and an F-16 pass over the column every minute." },
+  { yt: "", tag: "Grimwood",   title: "Grimwood Hollow after dark",
+    blurb: "The town, the fog, and the people who live there." },
+  { yt: "", tag: "Halloween",  title: "The Headless Horseman",
+    blurb: "A burning pumpkin, a chainsaw and a black thoroughbred, once a night in October." }
+];
+
+const grid = document.getElementById("grid");
+const live = CLIPS.filter(c => c.yt && c.yt.trim());
+
+if (!live.length) {
+  document.getElementById("empty").hidden = false;
+} else {
+  for (const c of live) {
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const shot = document.createElement("button");
+    shot.className = "shot";
+    shot.type = "button";
+    shot.setAttribute("aria-label", "Play: " + c.title);
+
+    const img = document.createElement("img");
+    img.src = "https://i.ytimg.com/vi/" + c.yt + "/hqdefault.jpg";
+    img.alt = "";
+    img.loading = "lazy";
+    img.width = 480; img.height = 360;
+    shot.appendChild(img);
+
+    const play = document.createElement("div");
+    play.className = "play";
+    play.innerHTML = "<span>&#9654;</span>";
+    shot.appendChild(play);
+
+    /* The player is only fetched on a click, so a page of twelve clips still loads like a page
+       of twelve images. */
+    shot.addEventListener("click", () => {
+      const f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + c.yt + "?autoplay=1&rel=0";
+      f.title = c.title;
+      f.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+      f.allowFullscreen = true;
+      shot.replaceChildren(f);
+    }, { once: true });
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    meta.innerHTML = '<span class="tag"></span><h2></h2><p></p>';
+    meta.querySelector(".tag").textContent = c.tag;
+    meta.querySelector("h2").textContent = c.title;
+    meta.querySelector("p").textContent = c.blurb;
+
+    card.append(shot, meta);
+    grid.appendChild(card);
+  }
+}
+</script>
+
+</body>
+</html>
