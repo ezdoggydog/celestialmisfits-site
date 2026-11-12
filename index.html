@@ -3,8 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Celestial Misfits</title>
-<meta name="description" content="Celestial Misfits: a Rust server that doesn't take itself too seriously. Seasonal events, custom weapons, and a bloodhound on the moon.">
+<title>Celestial Misfits | Veteran-Friendly Rust PvE Server</title>
+<meta name="description" content="Celestial Misfits is a veteran-friendly Rust PvE server: 13 seasonal events, custom rocket weapons, and a bloodhound on the moon. Join the Discord.">
+<link rel="canonical" href="https://celestialmisfits.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Celestial Misfits">
+<meta property="og:title" content="Celestial Misfits | Veteran-Friendly Rust PvE Server">
+<meta property="og:description" content="A veteran-friendly Rust PvE server that doesn't take itself too seriously. Seasonal events, custom weapons, and a bloodhound on the moon.">
+<meta property="og:url" content="https://celestialmisfits.com/">
+<meta property="og:image" content="https://celestialmisfits.com/img/regular.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a1028">
 <link rel="icon" href="img/icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -154,6 +163,40 @@ footer .wrap { display: flex; gap: 12px 24px; flex-wrap: wrap; justify-content: 
   .top nav { margin-left: 0; gap: 14px; }
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://celestialmisfits.com/#website",
+      "url": "https://celestialmisfits.com/",
+      "name": "Celestial Misfits",
+      "description": "A veteran-friendly Rust PvE server with seasonal events and custom weapons.",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://celestialmisfits.com/#org" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://celestialmisfits.com/#org",
+      "name": "Celestial Misfits",
+      "url": "https://celestialmisfits.com/",
+      "description": "A community-run Rust PvE server. Veteran-friendly, with seasonal events, custom rocket weapons and a bloodhound on the moon. Not affiliated with Facepunch Studios.",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://celestialmisfits.com/img/hound.jpg",
+        "width": 640,
+        "height": 640
+      },
+      "image": "https://celestialmisfits.com/img/regular.jpg",
+      "sameAs": [
+        "https://discord.gg/G575TtECm",
+        "https://214life.org"
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header class="top">
@@ -173,7 +216,7 @@ footer .wrap { display: flex; gap: 12px 24px; flex-wrap: wrap; justify-content: 
 
 <main id="home">
   <div class="wrap hero">
-    <figure><img id="heroImg" src="img/regular.jpg" alt="Celestial Misfits banner: a bloodhound in a patched space helmet, cigar in mouth, sitting on the moon"></figure>
+    <figure><img id="heroImg" src="img/regular.jpg" width="1200" height="600" alt="Celestial Misfits banner: a bloodhound in a patched space helmet, cigar in mouth, sitting on the moon"></figure>
     <div class="hero-row">
       <div>
         <div class="now" id="nowLine">Rust · Community server</div>
@@ -183,7 +226,7 @@ footer .wrap { display: flex; gap: 12px 24px; flex-wrap: wrap; justify-content: 
       </div>
       <div class="actions">
         <div class="addr"><code id="addr">Server address coming soon</code><button class="btn" id="copyBtn" type="button">Copy</button></div>
-        <a class="btn primary" id="discordBtn" href="#" target="_blank" rel="noopener">Join the Discord</a>
+        <a class="btn primary" id="discordBtn" href="https://discord.gg/G575TtECm" target="_blank" rel="noopener">Join the Discord</a>
         <a class="btn news" href="status.html">What's new this week</a>
         <a class="btn" href="guide.html">Player guide: every command</a>
       </div>
@@ -192,7 +235,7 @@ footer .wrap { display: flex; gap: 12px 24px; flex-wrap: wrap; justify-content: 
 
   <section id="about">
     <div class="wrap about">
-      <img src="img/hound.jpg" alt="The Celestial Misfits mascot: a cigar-chomping bloodhound in a patched helmet on a crescent moon">
+      <img src="img/hound.jpg" width="640" height="640" alt="The Celestial Misfits mascot: a cigar-chomping bloodhound in a patched helmet on a crescent moon">
       <div>
         <div class="eyebrow">Who we are</div>
         <h2>Not too serious. Seriously.</h2>
@@ -257,7 +300,7 @@ footer .wrap { display: flex; gap: 12px 24px; flex-wrap: wrap; justify-content: 
             <li>Payments are handled securely by Tip4Serv (PayPal or card).</li>
           </ul>
         </div>
-        <a class="btn primary" id="donateBtn" href="#" target="_blank" rel="noopener">Donate</a>
+        <a class="btn primary" id="donateBtn" href="https://misfits.tip4serv.com" target="_blank" rel="noopener">Donate</a>
       </div>
     </div>
   </section>
