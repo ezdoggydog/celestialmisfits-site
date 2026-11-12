@@ -75,6 +75,19 @@ MoonDoggy: "let's hold off on postiz for a bit, but keep it in the roadmap."
 **Set it up when there is a reason to post on a rhythm** -- wipe announcements, season launches,
 the Veterans Day parade. The material is already good; the habit is the missing part.
 
+**The gate he set (Nov 12 2026):** "I think we will go there eventually with Postiz. But I want to
+have the first couple of months of the storyline (with appropriate maps) generated before
+committing funding for that ($29/month)." Right order -- there is nothing worth announcing until
+there is something to announce, and paying to schedule posts about content that does not exist yet
+is backwards.
+
+Which makes the real blocker the Grimwood Saga, not the marketing. **Chapter 1 has never been
+walked end to end.** On Nov 11 we found that BasePlayer.userID is an EncryptedValue<ulong> struct,
+so Dialogs' conditioned nodes silently read false and only nodes with NO conditions could ever
+fire -- every conditioned node in the saga had been unreachable since it was written. The fix is
+in (third-party/PlayerEventStates.cs patched, /story probe and /story chapter1 built to verify
+it), but the verification has not been run on the server yet. That comes first.
+
 Steps when the time comes:
 
 1. **His**: an account at postiz.com (or self-host; it is open source), then connect the channels.
