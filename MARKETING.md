@@ -150,3 +150,13 @@ anyone will watch it.
 Keep each one 15-30 seconds and start on motion: no slow pans in, no title cards. Nothing
 needs music, and anything with music is a copyright claim waiting to happen on a channel we
 want to keep.
+
+**Channel:** https://www.youtube.com/channel/UC_wsBd4SFKASrz_VlPHt6UQ (created Nov 12, 2026).
+That ID URL is permanent and always works. Once the `@celestialmisfits` handle is set,
+`youtube.com/@celestialmisfits` is the one to give people -- swap the links on the site then.
+It is listed in the site footer and in the homepage's JSON-LD `sameAs`, which is how a search
+engine learns the channel and the server are the same outfit.
+
+Banner and watermark built Nov 12 and kept in the repo under `img/`: `yt_banner.jpg`
+(2560x1440, logo inside the 1546x423 phone-safe strip) and `yt_watermark.png` (150x150, the
+hound alone -- the wordmark is unreadable at that size).
