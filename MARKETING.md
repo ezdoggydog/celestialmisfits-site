@@ -151,9 +151,10 @@ Keep each one 15-30 seconds and start on motion: no slow pans in, no title cards
 needs music, and anything with music is a copyright claim waiting to happen on a channel we
 want to keep.
 
-**Channel:** https://www.youtube.com/channel/UC_wsBd4SFKASrz_VlPHt6UQ (created Nov 12, 2026).
-That ID URL is permanent and always works. Once the `@celestialmisfits` handle is set,
-`youtube.com/@celestialmisfits` is the one to give people -- swap the links on the site then.
+**Channel:** https://www.youtube.com/@CelestialMisfits (created Nov 12, 2026; handle claimed
+the same day). The channel-ID URL `youtube.com/channel/UC_wsBd4SFKASrz_VlPHt6UQ` still works
+and is permanent -- worth keeping somewhere, since a handle can be changed or lost and that
+one cannot.
 It is listed in the site footer and in the homepage's JSON-LD `sameAs`, which is how a search
 engine learns the channel and the server are the same outfit.
 
