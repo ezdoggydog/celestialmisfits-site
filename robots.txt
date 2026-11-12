@@ -1,0 +1,5 @@
+# Celestial Misfits
+User-agent: *
+Allow: /
+
+Sitemap: https://celestialmisfits.com/sitemap.xml
