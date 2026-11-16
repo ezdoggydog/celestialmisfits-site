@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How It Works | Celestial Misfits Rust PvE Server</title>
+<meta name="description" content="What every Celestial Misfits feature actually does: the backpack, trading, cruise control, repair boxes, horse breeding, portals and quests — including the bits that catch people out.">
+<link rel="canonical" href="https://celestialmisfits.com/features.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Celestial Misfits">
+<meta property="og:title" content="How It Works | Celestial Misfits Rust PvE Server">
+<meta property="og:description" content="What every Celestial Misfits feature actually does: the backpack, trading, cruise control, repair boxes, horse breeding, portals and quests — including the bits that catch people out.">
+<meta property="og:url" content="https://celestialmisfits.com/features.html">
+<meta property="og:image" content="https://celestialmisfits.com/img/regular_sm.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a1028">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: the same night sky as the rest of the site. A chip index, then one card per feature. */
+:root {
+  --sky: #0a1028; --sky-2: #121a3d; --sky-3: #1b2552;
+  --moon: #efe4c8; --moon-dim: #b9b2a0; --rust: #d0612e; --gold: #f0b94a;
+  --display: "Bungee", "Arial Black", Impact, sans-serif;
+  --body: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
+  color-scheme: dark;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--sky); color: var(--moon); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sky); }
+a { color: var(--gold); }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.top { border-bottom: 1px solid var(--sky-3); }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--moon); font-family: var(--display); font-size: 15px; }
+.brand img { width: 34px; height: 34px; border-radius: 50%; }
+.top nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
+.top nav a { color: var(--moon-dim); text-decoration: none; font-size: 14px; font-weight: 500; }
+.top nav a:hover, .top nav a[aria-current] { color: var(--moon); }
+
+.intro { padding-block: 36px 8px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; color: var(--rust); letter-spacing: .14em; text-transform: uppercase; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 5vw, 48px); line-height: 1.05; margin: 6px 0 10px; text-wrap: balance; }
+.lead { color: var(--moon-dim); max-width: 64ch; margin: 0; }
+
+.chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0 6px; }
+.chips a { font-size: 14px; text-decoration: none; color: var(--moon-dim); border: 1px solid var(--sky-3); background: var(--sky-2); border-radius: 999px; padding: 6px 14px; }
+.chips a:hover { color: var(--moon); border-color: var(--gold); }
+
+.topics { display: grid; gap: 18px; padding-block: 18px 30px; }
+.topic { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; padding: 20px 22px; scroll-margin-top: 20px; }
+.topic h2 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; font-size: 22px; }
+.topic .blurb { color: var(--moon-dim); margin: 0 0 14px; max-width: 70ch; }
+.topic h3 { font-size: 15px; margin: 18px 0 6px; color: var(--gold); font-weight: 700; }
+.topic p { max-width: 72ch; margin: 0 0 10px; }
+.topic ul { margin: 0 0 10px; padding-left: 20px; max-width: 72ch; }
+.topic li { margin-bottom: 6px; }
+.topic b { color: var(--moon); }
+code { font-family: var(--mono); font-size: .9em; background: var(--sky-3); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+
+.cmds { list-style: none; padding-left: 0; margin: 0 0 10px; display: grid; gap: 4px; }
+.cmds li { display: grid; grid-template-columns: minmax(130px, max-content) 1fr; gap: 6px 14px; align-items: baseline; }
+.cmds .what { color: var(--moon-dim); font-size: 15px; }
+
+.callout { border-left: 3px solid var(--rust); background: var(--sky-3); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 14px 0; max-width: 72ch; }
+.callout p { margin: 0; }
+.callout b { color: var(--gold); }
+
+.more { color: var(--moon-dim); font-size: 14px; padding-bottom: 30px; max-width: 70ch; }
+footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; border-top: 1px solid var(--sky-3); }
+@media (max-width: 640px) {
+  .top nav { margin-left: 0; gap: 14px; }
+  .cmds li { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/icon.png" alt="">Celestial Misfits</a>
+    <nav aria-label="Site">
+      <a href="index.html#about">About</a>
+      <a href="index.html#seasons">Seasons</a>
+      <a href="index.html#arsenal">Arsenal</a>
+      <a href="guide.html">Player guide</a>
+      <a href="features.html" aria-current="page">How it works</a>
+      <a href="rust-info.html">Know-how</a>
+      <a href="status.html">This week</a>
+      <a href="index.html#donate">Donate</a>
+      <a href="help.html" style="color: var(--gold)">You're not alone</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap intro">
+  <div class="eyebrow">How it works</div>
+  <h1>What all this stuff actually does</h1>
+  <p class="lead">The <a href="guide.html">player guide</a> tells you what to type. This tells you what happens when you do — including the parts that catch people out. Everything here is ours, written for this server.</p>
+  <div class="chips">
+    <a href="#backpack">Backpack</a>
+    <a href="#trade">Trading</a>
+    <a href="#cruise">Cruise control</a>
+    <a href="#repairbox">Repair boxes</a>
+    <a href="#horses">Horses</a>
+    <a href="#portals">Portals</a>
+    <a href="#quests">Quests</a>
+  </div>
+</section>
+
+<div class="wrap topics">
+
+  <article class="topic" id="backpack">
+    <h2>The backpack</h2>
+    <p class="blurb">A second inventory that follows you, split into pages. It survives death and it survives wipe. Most of what people ask about is the toolbar across the top.</p>
+    <ul class="cmds">
+      <li><code>/bp</code> <span class="what">open it (<code>/backpack</code> works too)</span></li>
+    </ul>
+
+    <h3>Pages</h3>
+    <p>Each page is its own 48 slots. Click a page number to switch. You can <b>rename a page</b> by typing over the name beside the page buttons and pressing Enter, and you can <b>give a page a type</b> — Food, Components, Ammo, Weapons and so on — by clicking the type button next to the name.</p>
+
+    <h3>Gather</h3>
+    <p>Per page, and it decides what goes in automatically as you play:</p>
+    <ul>
+      <li><b>Off</b> — nothing goes in by itself.</li>
+      <li><b>Existing</b> — picked-up items join stacks the page already has.</li>
+      <li><b>All</b> — anything that fits the page's type goes in.</li>
+    </ul>
+
+    <h3>Search, Craft and Combine</h3>
+    <p><b>Search</b> finds an item anywhere in the backpack and tells you which page it's on — the page button beside the box jumps you there, and the <code>+N</code> beside it steps through the rest. Matching slots get a highlighted frame.</p>
+    <p><b>Combine</b> merges part-stacks and tidies everything up. If the maths doesn't come out exactly right it puts the backpack back the way it was and tells you, so nothing is ever lost to it. <code>/backpack undo</code> reverses the last Combine if nothing's changed since.</p>
+
+    <h3>Deposit</h3>
+    <p>Sweeps your inventory — not your belt — into the backpack. It only takes things the backpack already holds, or things that match a page's type, so it won't hoover up your gun.</p>
+
+    <h3>Trash</h3>
+    <p>A bulk delete with a deliberate safety on it, because it's the one button that can cost you something.</p>
+    <ul>
+      <li>Click once and it <b>arms</b>, showing <b>"Sure?"</b> for five seconds.</li>
+      <li>Click again while it's armed and it turns <b>ON</b> and goes red.</li>
+      <li>Leave it alone and it disarms itself.</li>
+    </ul>
+    <p>While it's ON, <b>anything you drag out of the backpack is deleted — the whole stack</b>, not one item. That's the point: it's for clearing out junk without confirming every single thing. It turns itself off when you close the backpack, so it can't be left on by accident.</p>
+    <div class="callout">
+      <p><b>If you delete something you wanted:</b> <code>/backpack untrash</code> brings the last one back. It remembers the last twenty — but only in memory, so a server restart clears that list. Don't rely on it overnight.</p>
+    </div>
+  </article>
+
+  <article class="topic" id="trade">
+    <h2>Trading</h2>
+    <p class="blurb">A proper trade window between two players, so nobody has to drop things on the ground and trust each other.</p>
+    <ul class="cmds">
+      <li><code>/trade &lt;player&gt;</code> <span class="what">ask someone to trade</span></li>
+      <li><code>/ta</code> <span class="what">accept a request</span></li>
+      <li><code>/td</code> <span class="what">turn one down</span></li>
+      <li><code>/tcancel</code> <span class="what">call off a request you sent</span></li>
+    </ul>
+    <p>Closing the trade window also cancels it, so you don't have to remember the command.</p>
+    <div class="callout">
+      <p><b>Note the name:</b> it's <code>/tcancel</code>, not <code>/tpc</code> — <code>/tpc</code> belongs to the teleport plugin and cancels a teleport instead.</p>
+    </div>
+  </article>
+
+  <article class="topic" id="cruise">
+    <h2>Cruise control</h2>
+    <p class="blurb">Set a speed, let go of W, steer. The long haul around the ring road stops being a thumb exercise.</p>
+    <ul class="cmds">
+      <li><code>/cruise</code> <span class="what">hold whatever speed you're doing now</span></li>
+      <li><code>/cruise 50</code> <span class="what">hold 50</span></li>
+      <li><code>/cruise auto</code> <span class="what">follow the ring road too — hands off entirely</span></li>
+      <li><code>/cruise 40 auto</code> <span class="what">both (the words go in either order)</span></li>
+      <li><code>/cruise off</code> <span class="what">let go</span></li>
+    </ul>
+    <p>It <b>eases off by itself where the road crosses a railway</b>, and the note on screen says CROSSING while it does. Trains do not brake for you.</p>
+    <p>It works on <b>everything you can drive</b> — vanilla vehicles, the custom ones, and anything added later — because it holds the forward key in your own input rather than reaching into each type of vehicle. Nothing has to be taught about it.</p>
+  </article>
+
+  <article class="topic" id="repairbox">
+    <h2>Repair boxes</h2>
+    <p class="blurb">Tag a box as a repair box, and anything in it that wears out comes back to full condition a couple of seconds later. Leave a broken hatchet in it and it's a hatchet again.</p>
+    <ul class="cmds">
+      <li><code>/repairbox</code> <span class="what">look at a box and run this — it's a repair box now (run it again to stop)</span></li>
+      <li><code>/repairbox list</code> <span class="what">your repair boxes, and where they are</span></li>
+    </ul>
+    <p>Tagging a box also repairs whatever's already inside, so you don't need to take everything out and put it back.</p>
+    <div class="callout">
+      <p><b>It repairs, it doesn't resurrect.</b> Rust drops an item's maximum condition a little every time it's repaired, and this does the same. A much-repaired tool is never quite new again — just like at a repair bench.</p>
+    </div>
+  </article>
+
+  <article class="topic" id="horses">
+    <h2>Horses</h2>
+    <p class="blurb">Claim a horse, read its genes, and breed it. Foals inherit from both parents, with a chance of something better than either.</p>
+    <ul class="cmds">
+      <li><code>/claim</code> <span class="what">claim the horse you're looking at</span></li>
+      <li><code>/breed</code> <span class="what">start breeding two horses you own</span></li>
+      <li><code>/claim foal</code> <span class="what">turn a Foal Token into a real horse</span></li>
+      <li><code>/horsefind</code> <span class="what">list nearby horses and point an arrow at the closest</span></li>
+    </ul>
+
+    <h3>What a horse carries</h3>
+    <ul>
+      <li><b>Speed</b> — how fast it moves</li>
+      <li><b>Stamina</b> — the size of its stamina bar</li>
+      <li><b>Endurance</b> — how long it runs before tiring</li>
+      <li><b>Health</b> — hit points</li>
+      <li><b>Generation</b> — one higher than its parents</li>
+      <li><b>Breed</b> — coat and type (Thoroughbreds get a speed bonus)</li>
+    </ul>
+    <p>A foal averages its parents with a bit of variance, and can <b>mutate</b> — in stats or coat. That's how you end up with something neither parent was.</p>
+
+    <h3>Breeding</h3>
+    <p>Keep the pair close together and they keep producing. Each foal arrives as a <b>Foal Token</b>, in a green vehicle-parts crate between the two horses — so look down, not around. <code>/claim foal</code> turns the token into the animal.</p>
+    <div class="callout">
+      <p><b>One pair at a time, server-wide.</b> If breeding won't start, somebody else is already at it. Ask in Discord rather than assuming it's broken.</p>
+    </div>
+  </article>
+
+  <article class="topic" id="portals">
+    <h2>Portals</h2>
+    <p class="blurb">Walk into the sphere and you come out somewhere else — another point on this map, or another server entirely.</p>
+    <ul class="cmds">
+      <li><code>/portals</code> <span class="what">where the pads are</span></li>
+    </ul>
+    <p>A local hop is instant. A trip to <b>another server</b> is a real handover: your inventory and your RP are taken off you, packaged, sent across, and given back on the other side. Nothing can be dropped or duplicated while it's in flight.</p>
+    <div class="callout">
+      <p><b>The one rule: your gear is moved, never copied, and never quietly deleted.</b> If anything can't be placed back on you at the far end, it's archived under a six-digit code and staff can restore it. If a trip goes wrong, that code is what you bring to Discord.</p>
+    </div>
+    <p>One thing to do before you step in: <b>empty your Backpacks bag.</b> If it can't be emptied the trip is cancelled before anything is touched — which is the safe outcome, but it's easier to just do it first.</p>
+  </article>
+
+  <article class="topic" id="quests">
+    <h2>Quests</h2>
+    <p class="blurb">A daily board plus a pile of standing jobs, with quest givers scattered about who hand out their own work.</p>
+    <ul class="cmds">
+      <li><code>/sq</code> <span class="what">open the quest list</span></li>
+    </ul>
+
+    <h3>The board</h3>
+    <p>Board quests <b>rotate every day</b>, with the weekly ones turning over on Monday. One of each day's quests is <b>FEATURED</b> and pays a bonus — worth checking before you pick.</p>
+    <p><b>Standing jobs</b> don't rotate. They're always there, and you can take them whenever.</p>
+
+    <h3>Two kinds of job</h3>
+    <ul>
+      <li><b>Acquire</b> — gather, catch, craft, loot, grow, recycle or buy it <em>after</em> taking the job. Things you already had don't count.</li>
+      <li><b>Hand in</b> — turn in what you've already got. No need to take the job first.</li>
+    </ul>
+    <p>That distinction catches everybody once. If a job isn't ticking up, check which kind it is.</p>
+
+    <h3>Events count</h3>
+    <p>Oil rigs, cargo, Bradley, heli, the train, convoy, harbour, airfield, pirates, the trucker, random raids and raidable bases all give quest credit — and for Bradley and heli, <b>everyone who hit it gets credit</b>, not just whoever landed the last shot.</p>
+
+    <h3>Quest givers</h3>
+    <p>Benny has the board: the daily and weekly rotation, and every standing job that isn't assigned to somebody else. Other givers hand out their own work, so it's worth talking to people you meet.</p>
+  </article>
+
+</div>
+
+<p class="wrap more">Something here unclear, or missing? Say so in the <a href="https://discord.gg/G575TtECm" target="_blank" rel="noopener">Discord</a> and it gets fixed. If you had to ask someone how a thing worked, that's a gap on this page.</p>
+
+<footer>
+  <div class="wrap">Questions? MoonDoggy on Discord: <b>zzmoondoggy</b> · <a href="help.html">You're not alone</a> · <a href="index.html">Back to Celestial Misfits</a></div>
+</footer>
+
+</body>
+</html>
