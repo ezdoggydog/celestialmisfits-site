@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rust Know-How | Celestial Misfits Rust PvE Server</title>
+<meta name="description" content="How Rust's world actually works: the underground Freight Transit Line, which monuments get a station, what's down there and what the trip costs you.">
+<link rel="canonical" href="https://celestialmisfits.com/rust-info.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Celestial Misfits">
+<meta property="og:title" content="Rust Know-How | Celestial Misfits Rust PvE Server">
+<meta property="og:description" content="How Rust's world actually works, learned the hard way: the underground Freight Transit Line, what's at every station, how to get down there and what it costs you.">
+<meta property="og:url" content="https://celestialmisfits.com/rust-info.html">
+<meta property="og:image" content="https://celestialmisfits.com/img/regular_sm.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a1028">
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: the same night sky as the rest of the site. An index of topics, then one card per topic. */
+:root {
+  --sky: #0a1028; --sky-2: #121a3d; --sky-3: #1b2552;
+  --moon: #efe4c8; --moon-dim: #b9b2a0; --rust: #d0612e; --gold: #f0b94a;
+  --display: "Bungee", "Arial Black", Impact, sans-serif;
+  --body: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Consolas", monospace;
+  color-scheme: dark;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--sky); color: var(--moon); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--sky); }
+a { color: var(--gold); }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+.top { border-bottom: 1px solid var(--sky-3); }
+.top .wrap { display: flex; align-items: center; gap: 16px; padding-block: 10px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--moon); font-family: var(--display); font-size: 15px; }
+.brand img { width: 34px; height: 34px; border-radius: 50%; }
+.top nav { margin-left: auto; display: flex; gap: 18px; flex-wrap: wrap; }
+.top nav a { color: var(--moon-dim); text-decoration: none; font-size: 14px; font-weight: 500; }
+.top nav a:hover, .top nav a[aria-current] { color: var(--moon); }
+
+.intro { padding-block: 36px 8px; }
+.eyebrow { font-family: var(--mono); font-size: 12px; color: var(--rust); letter-spacing: .14em; text-transform: uppercase; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 5vw, 48px); line-height: 1.05; margin: 6px 0 10px; text-wrap: balance; }
+.lead { color: var(--moon-dim); max-width: 64ch; margin: 0; }
+
+.chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 22px 0 6px; }
+.chips a { font-size: 14px; text-decoration: none; color: var(--moon-dim); border: 1px solid var(--sky-3); background: var(--sky-2); border-radius: 999px; padding: 6px 14px; }
+.chips a:hover { color: var(--moon); border-color: var(--gold); }
+
+.topics { display: grid; gap: 18px; padding-block: 18px 40px; }
+.topic { background: var(--sky-2); border: 1px solid var(--sky-3); border-radius: 12px; padding: 20px 22px; scroll-margin-top: 20px; }
+.topic h2 { margin: 0 0 4px; font-family: var(--display); font-weight: 400; font-size: 22px; }
+.topic .blurb { color: var(--moon-dim); margin: 0 0 14px; max-width: 70ch; }
+.topic h3 { font-size: 16px; margin: 18px 0 6px; color: var(--gold); font-weight: 700; }
+.topic p { max-width: 72ch; margin: 0 0 10px; }
+.topic ul { margin: 0 0 10px; padding-left: 20px; max-width: 72ch; }
+.topic li { margin-bottom: 6px; }
+.topic b { color: var(--moon); }
+code { font-family: var(--mono); font-size: .9em; background: var(--sky-3); padding: 1px 6px; border-radius: 4px; }
+
+.callout { border-left: 3px solid var(--rust); background: var(--sky-3); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 14px 0; max-width: 72ch; }
+.callout p { margin: 0; }
+
+.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.steps li { counter-increment: step; position: relative; padding-left: 34px; margin-bottom: 8px; }
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 1px;
+  width: 22px; height: 22px; border-radius: 50%; background: var(--rust); color: #fff;
+  font-family: var(--mono); font-size: 12px; display: grid; place-items: center;
+}
+
+.more { color: var(--moon-dim); font-size: 14px; padding-bottom: 30px; max-width: 70ch; }
+footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; border-top: 1px solid var(--sky-3); }
+@media (max-width: 640px) { .top nav { margin-left: 0; gap: 14px; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/icon.png" alt="">Celestial Misfits</a>
+    <nav aria-label="Site">
+      <a href="index.html#about">About</a>
+      <a href="index.html#seasons">Seasons</a>
+      <a href="index.html#arsenal">Arsenal</a>
+      <a href="guide.html">Player guide</a>
+      <a href="rust-info.html" aria-current="page">Know-how</a>
+      <a href="status.html">This week</a>
+      <a href="index.html#donate">Donate</a>
+      <a href="help.html" style="color: var(--gold)">You're not alone</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap intro">
+  <div class="eyebrow">Know-how</div>
+  <h1>Things worth knowing</h1>
+  <p class="lead">How Rust's world actually works, written down as we learn it. Not server commands — those are in the <a href="guide.html">player guide</a>. This is the stuff nobody tells you and everybody finds out the hard way.</p>
+  <div class="chips">
+    <a href="#railway">The underground railway</a>
+  </div>
+</section>
+
+<div class="wrap topics">
+
+  <article class="topic" id="railway">
+    <h2>The Freight Transit Line</h2>
+    <p class="blurb">There is a working goods railway under the entire map. It has stations, platforms, loading docks and trains that run whether or not anyone is aboard. Most players walk over it for a whole wipe without going down.</p>
+
+    <h3>Where it goes</h3>
+    <p><b>Every medium and large monument gets a train station.</b> That's how Rust builds a map, so it holds wherever you play — Airfield, Launch Site, Train Yard, Water Treatment, the lot.</p>
+    <p>Small monuments are the lottery. They get one if the generator happens to run track that way, and on <b>our current map Oxum's Gas Station missed out</b> — it sits in a band through the middle with no rail in it at all, so that one you reach on foot or by road. Next wipe it might have a station and something else might not.</p>
+    <p>The surface rails and the underground rails are <b>one connected network</b>. A train can run the whole thing, surface to tunnel and back, without anyone touching a switch.</p>
+
+    <h3>Finding a station</h3>
+    <p>Look for the <b>train icon</b> on your map — that marks an entrance, not the platform itself. On the ground it's a sunken stairwell with a caged lift in the middle, usually out in the open in the monument's yard, under a rusted <code>FT</code> canopy.</p>
+    <div class="callout">
+      <p>Worth knowing: the entrance is <b>completely exposed</b>. Anyone nearby can see you go down, and they know roughly where you'll come back up.</p>
+    </div>
+
+    <h3>Getting down there</h3>
+    <p>It isn't one staircase. The descent is staged — lift, corridor, lift, corridor — and at each stage you get a <b>choice of the elevator or the stairs beside it</b>.</p>
+    <ul>
+      <li><b>The lift</b> is faster and completely commits you. You're in a cage, you're slow, and everyone can see you.</li>
+      <li><b>The stairs</b> are slower but reversible. You can change your mind halfway.</li>
+    </ul>
+    <p>The <b>first leg is clear</b>. Nothing is waiting in the top stairs and lifts, so you can get underground, have a look at what's ahead and decide whether to commit. It gets busier the deeper you go. The last door before the platform is red, with two green lights over it.</p>
+
+    <h3>What's actually down there</h3>
+    <ul>
+      <li><b>Two platforms</b>, one either side of the tracks, each with its own way back up to the surface. You never have to cross the line to get out.</li>
+      <li><b>A loading dock</b> off the side of the platform — forklift, pallets, a roller shutter and a stair to a door. It's a proper room.</li>
+      <li><b>An office</b>, signed in red, with its own door.</li>
+      <li>Benches. Somebody built this place for people to wait in.</li>
+    </ul>
+
+    <h3>The trains</h3>
+    <p>Between stations it's a single-track tunnel. At the stations it opens to two tracks, which is where trains pass each other. Two trains can be in one station at once, on opposite roads, with a platform each.</p>
+    <p>A moving train does <b>not stop for anything on the line</b>. If a workcart is parked in the way, it pushes it — and keeps pushing it, getting slower the more it's shoving along. Nothing couples; back the engine off and whatever it was pushing stays where it stopped.</p>
+
+    <h3>The trade</h3>
+    <p>Here's the part that matters. <b>Tunnel loot is quicker to get than surface loot for the same amount.</b> That's not a secret — everyone knows it, which is exactly why the tunnels are the first place anyone goes looking for an easy target on a PvP server.</p>
+    <p>You're on a PvE server, so nobody is waiting at the bottom of that lift to take your bag. What <em>is</em> down there will still hurt you. Go prepared, and remember how long the walk back up is.</p>
+  </article>
+
+</div>
+
+<p class="wrap more">More topics as we find them. If there's something about the world you had to learn the hard way, say so in the Discord and it'll end up on this page so the next person doesn't have to.</p>
+
+<footer>
+  <div class="wrap">Questions? MoonDoggy on Discord: <b>zzmoondoggy</b> · <a href="help.html">You're not alone</a> · <a href="index.html">Back to Celestial Misfits</a></div>
+</footer>
+
+</body>
+</html>
