@@ -129,17 +129,31 @@ footer { padding-block: 24px 40px; color: var(--moon-dim); font-size: 14px; bord
     <h3>Pages</h3>
     <p>Each page is its own 48 slots. Click a page number to switch. You can <b>rename a page</b> by typing over the name beside the page buttons and pressing Enter, and you can <b>give a page a type</b> — Food, Components, Ammo, Weapons and so on — by clicking the type button next to the name.</p>
 
-    <h3>Gather</h3>
+    <h3>Gather — filling it without thinking about it</h3>
     <p>Per page, and it decides what goes in automatically as you play:</p>
     <ul>
       <li><b>Off</b> — nothing goes in by itself.</li>
-      <li><b>Existing</b> — picked-up items join stacks the page already has.</li>
-      <li><b>All</b> — anything that fits the page's type goes in.</li>
+      <li><b>Existing</b> — picked-up items join stacks the page already has, and nothing else.</li>
+      <li><b>All</b> — on a page with a type, anything of that type. On an untyped (<b>Any</b>) page, anything at all.</li>
     </ul>
+    <p>Items look for a page of their own type first, then an Any page, so a typed page always gets first refusal on the things it was made for.</p>
+    <div class="callout">
+      <p><b>Why it sometimes leaves things in your inventory:</b> if you're already carrying some of that item — in your inventory or on your belt — the new ones stay with it rather than vanishing into the backpack. So the stack you're actually using doesn't get taken off you mid-job.</p>
+    </div>
+
+    <h3>Use — spending straight out of the backpack</h3>
+    <p>This is the one most people don't know is there. The green <b>Use</b> button beside each page's type means <b>that page counts as part of your inventory</b> — the game can reach into it without you opening anything.</p>
+    <p>It applies to crafting in the normal craft menu, building and upgrading, repairing, reloading, placing things down, and anything that's paid for with items: shops, vehicle purchases, quests. Your inventory gets spent first, then the backpack.</p>
+    <p>Every page starts switched on. Click <b>Use</b> to leave a page out — handy for a page you're treating as long-term storage and don't want quietly spent.</p>
+    <p>Together with Gather it closes the loop: the backpack fills itself as you play, and empties itself as you build.</p>
 
     <h3>Search, Craft and Combine</h3>
     <p><b>Search</b> finds an item anywhere in the backpack and tells you which page it's on — the page button beside the box jumps you there, and the <code>+N</code> beside it steps through the rest. Matching slots get a highlighted frame.</p>
-    <p><b>Combine</b> merges part-stacks and tidies everything up. If the maths doesn't come out exactly right it puts the backpack back the way it was and tells you, so nothing is ever lost to it. <code>/backpack undo</code> reverses the last Combine if nothing's changed since.</p>
+    <p><b>Combine</b> works across <b>every page at once</b>, not just the one you're looking at. It merges part-stacks of the same item, groups each kind together, and repacks everything from page one — sending each item to a page of its own type first, so overflow onto Any pages can't eat the room a typed page was holding.</p>
+    <p>If the maths doesn't come out exactly right it puts the backpack back the way it was and tells you, so nothing is ever lost to it. <code>/backpack undo</code> reverses the last Combine if nothing's changed since.</p>
+    <div class="callout">
+      <p><b>Page types are Rust's categories, not ours.</b> So they don't always land where you'd guess — an Igniter is <b>Electrical</b>, not Components, because Rust files deployable electrics separately from crafting parts. An Electric Fuse goes the other way and really is a Component. If something keeps landing on the wrong page, that's why.</p>
+    </div>
 
     <h3>Deposit</h3>
     <p>Sweeps your inventory — not your belt — into the backpack. It only takes things the backpack already holds, or things that match a page's type, so it won't hoover up your gun.</p>
